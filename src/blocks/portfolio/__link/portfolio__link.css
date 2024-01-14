@@ -1,0 +1,13 @@
+.portfolio__link {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 1140px;
+  border-bottom: 1px solid #424242;
+  height: 60px;
+  box-sizing: border-box;
+}
+
+.portfolio__link:last-of-type {
+  border-bottom: none;
+}

@@ -1,0 +1,11 @@
+.about-project__visual-title {
+  padding-top: 14px;
+  height: 36px;
+  font-family: 'Inter';
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;  
+  text-align: center;
+  color: #8b8b8b;
+  box-sizing: border-box;
+}

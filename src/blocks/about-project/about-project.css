@@ -1,0 +1,10 @@
+.about-project {
+  margin: 0;
+  padding: 0 70px;
+  display: flex;
+  flex-direction: column;
+  width: 1280px;
+  height: 608px;
+  background-color: #202020;
+  box-sizing: border-box;
+}

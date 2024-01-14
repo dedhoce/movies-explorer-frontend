@@ -1,0 +1,8 @@
+.about-project__info-block {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;    
+    width: 550px;
+}

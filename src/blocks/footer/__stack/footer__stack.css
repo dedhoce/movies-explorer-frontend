@@ -1,0 +1,7 @@
+.footer__stack {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}

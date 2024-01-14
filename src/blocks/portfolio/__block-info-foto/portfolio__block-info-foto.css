@@ -1,0 +1,6 @@
+.portfolio__block-info-foto {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 100px;
+}

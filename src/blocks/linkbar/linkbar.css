@@ -1,0 +1,11 @@
+.linkbar {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+  width: 1280px;
+  height: 66px;
+  background: #272727;
+}
