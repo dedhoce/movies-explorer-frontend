@@ -1,0 +1,22 @@
+.header-reg {
+  max-width: 1280px;  
+  background-color: #202020;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.header-reg__title {
+  margin: 0;
+  margin-bottom: 40px;
+  padding: 0;
+  font-family: Inter;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 29px;
+  letter-spacing: 0em;
+  text-align: left;
+  width: 396px;
+  height: 29px;
+}

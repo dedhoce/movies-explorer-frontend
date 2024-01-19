@@ -1,0 +1,10 @@
+.logo {
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: 38px;
+  height: 38px;
+  background-image: url('../../../image/logo.png');
+  border-radius: 10px;
+  cursor: pointer;
+}
