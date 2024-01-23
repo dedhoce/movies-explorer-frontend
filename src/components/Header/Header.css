@@ -8,6 +8,7 @@
   margin: 0;
   padding: 0 70px;
   box-sizing: border-box;
+  position: relative;
 }
 
 .header__logo-nav {
@@ -32,7 +33,7 @@
   border-style: none;
   width: 77px;
   height: 32px;
-  font-family: 'Inter';
+  font-family: 'Inter', 'Arial', sans-serif;;
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
@@ -55,7 +56,7 @@
   width: 76px;
   height: 32px;
   border-radius: 3px;
-  font-family: 'Inter';
+  font-family: 'Inter', 'Arial', sans-serif;;
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
@@ -65,36 +66,8 @@
   cursor: pointer;
 }
 
-.header__button-signin {
+.header__button-signin:hover {
   opacity: .8;
-}
-
-.header__accaunt {
-  display: flex;
-  align-items: center;  
-  gap: 8px;
-  padding-left: 11px;
-  box-sizing: border-box;
-  width: 100px;
-  height: 32px;
-  font-family: Inter;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 12px;
-  letter-spacing: 0px;
-  text-align: left;
-  color: #fff;
-}
-
-.header__accaunt-label {
-  width: 26px;
-  height: 26px;
-  border-radius: 50px;
-  background-color: #313131;
-  background-image: url('../../image/accaunt-label.svg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 10.67px;
 }
 
 .header__links {
@@ -127,9 +100,48 @@
   font-weight: 500;
 }
 
+.header__menu {
+  width: 44px;
+  height: 44px;
+  background-image: url('../../image/menu-icon.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: #073042;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity .5s ease;
+}
+
+.header__menu:hover{
+  opacity: .8;
+}
+
 @media screen and (min-width: 320px) and (max-width: 768px) {
   .header {
     max-width: 768px;
     padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header {
+    max-width: 320px;
+    padding: 0 15px;
+  }
+  .header__button-signin {
+    width: 53px;
+    height: 26px;
+  }
+  .header__button-signup {    
+    width: 48px;
+    height: auto;
+    font-size: 10px;
+  }
+  .header__menu {
+    margin-right: 9px;
+    width: 22px;
   }
 }

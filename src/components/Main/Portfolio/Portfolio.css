@@ -13,7 +13,7 @@
   margin: 0;
   padding: 0;
   margin-bottom: 50px;
-  font-family: 'Inter';
+  font-family: 'Inter', 'Arial', sans-serif;;
   font-size: 18px;
   font-weight: 400;
   line-height: 20px;
@@ -35,7 +35,7 @@
   margin: 0;
   padding: 0;
   height: 50px;
-  font-family: 'Inter';
+  font-family: 'Inter', 'Arial', sans-serif;;
   font-size: 30px;
   font-weight: 400;
   line-height: 50px;
@@ -69,7 +69,7 @@
 }
 
 .portfolio__link:hover {
-  opacity: .7;  
+  opacity: 0.7;
 }
 
 .portfolio__link:last-of-type {
@@ -85,7 +85,7 @@
 .portfolio__block-stack {
   margin: 0;
   padding: 0;
-  font-family: 'Inter';
+  font-family: 'Inter', 'Arial', sans-serif;;
   font-size: 14px;
   font-weight: 500;
   line-height: 17px;
@@ -98,7 +98,7 @@
   margin: 0;
   margin-bottom: 18px;
   padding: 0;
-  font-family: 'Inter';
+  font-family: 'Inter', 'Arial', sans-serif;;
   font-size: 50px;
   font-weight: 400;
   line-height: 58px;
@@ -118,7 +118,7 @@
   margin: 0;
   padding: 0;
   margin-bottom: 99px;
-  font-family: 'Inter';
+  font-family: 'Inter', 'Arial', sans-serif;;
   font-size: 14px;
   font-weight: 400;
   line-height: 22px;
@@ -131,7 +131,7 @@
   margin: 0;
   padding: 0;
   margin-bottom: 26px;
-  font-family: 'Inter';
+  font-family: 'Inter', 'Arial', sans-serif;;
   font-size: 18px;
   font-weight: 500;
   line-height: 20px;
@@ -148,7 +148,7 @@
   .portfolio {
     max-width: 768px;
     height: 994px;
-    padding: 0 50px;   
+    padding: 0 50px;
   }
   .portfolio__block-name {
     font-size: 40px;
@@ -157,17 +157,17 @@
   }
   .portfolio__block-info {
     font-size: 12px;
-    margin-bottom: 18px;    
+    margin-bottom: 18px;
   }
   .portfolio__block-about-me {
-    font-size: 12px;    
+    font-size: 12px;
     line-height: 18px;
     margin-bottom: 90px;
     width: 364px;
   }
   .portfolio__foto {
     width: 256px;
-    height: 309px;    
+    height: 309px;
   }
   .portfolio__block-info-foto {
     margin-bottom: 90px;
@@ -177,5 +177,59 @@
   }
   .portfolio__link {
     height: 70px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 700px){
+  .portfolio__foto {
+    order: 1;
+  }
+  .portfolio__block {
+    order: 2;
+  }
+  .portfolio__block-info-foto {
+    flex-direction: column;
+    margin-bottom: 69px;
+  }
+  .portfolio {
+    margin: 0 auto;
+    max-width: 320px;
+    height: auto;
+    padding: 0 15px;
+  }
+  .portfolio__block {
+    width: auto;
+  }
+  .portfolio__block-about-me {
+    width: auto;
+    line-height: 16px;
+    margin-bottom: 40px;
+  }
+  .portfolio__foto {
+    width: 292px;
+    height: 354px;
+    margin-bottom: 39px;
+  }
+  .portfolio__block-name {
+    font-size: 30px;
+  }
+  .portfolio__list-title {
+    font-size: 14px;
+    margin-bottom: 31px;
+  }
+  .portfolio__link-title {
+    font-size: 18px;
+  }
+  .portfolio__link {
+    height: 58px;
+  }
+  .portfolio__list-link {
+    gap: 10px;
+  }
+  .portfolio__link-arrow {
+    height: 12px;
+    width: 12px;
+    background-size: contain;    
+    margin: 16px 3px 0 0;    
   }
 }

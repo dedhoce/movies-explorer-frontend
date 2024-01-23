@@ -3,7 +3,7 @@ import './Footer.css'
 export default function Footer() {
     return (
         <div className="footer">
-            <caption className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</caption>
+            <p className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</p>
             <ul className="footer__info">
                 <li className="footer__item">&copy; {new Date().getFullYear()}</li>
                 <ul className="footer__stack">

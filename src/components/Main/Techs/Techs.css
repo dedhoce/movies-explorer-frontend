@@ -1,6 +1,5 @@
 .techs {
-  max-width: 1280px;
-  height: 625px;
+  max-width: 1280px;  
   background-color: #272727;
   margin: 0;
   padding: 0 70px;
@@ -14,8 +13,8 @@
   padding: 21px 0;
   border-radius: 10px;
   background-color: #303030;
-  width: 90px;  
-  font-family: Inter;
+  width: 90px;
+  font-family: 'Inter', 'Arial', sans-serif;;
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
@@ -28,16 +27,17 @@
   margin: 0;
   padding: 0;
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   list-style: none;
+  justify-content: center;
 }
 
 .techs__block-title {
   margin: 0;
-  margin-bottom: 26px;
-  width: 600px;
+  margin-bottom: 26px;  
   height: 58px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;;
   font-size: 50px;
   font-weight: 400;
   line-height: 58px;
@@ -49,10 +49,9 @@
 .techs__block-caption {
   margin: 0;
   margin-bottom: 100px;
-  padding: 0;
-  width: 460px;
+  padding: 0;  
   height: 40px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;;
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -71,17 +70,17 @@
   align-items: center;
 }
 
-@media screen and (min-width: 320px) and (max-width: 768px) {
+@media screen and (min-width: 321px) and (max-width: 768px) {
   .techs {
-    max-width: 768px;
-    height: 567px;    
-    padding: 0 50px;    
+    max-width: 768px;    
+    padding: 0 10px;
   }
-  .techs__block {    
-    margin-top: 10px;    
+  .techs__block {
+    margin-top: 10px;
   }
-  .techs__block-title {    
-    margin-bottom: 18px;    
+  .techs__block-title {
+    height: auto;
+    margin-bottom: 18px;
   }
   .techs__block-caption {
     height: 36px;
@@ -90,8 +89,40 @@
     margin-bottom: 86px;
   }
   .techs__list-item {
-    padding: 20px 0;    
-    width: 84px; 
+    padding: 20px 0;
+    width: 84px;
     font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .techs {
+    max-width: 320px;    
+    padding: 0 17px;
+  }
+  .techs__block {
+    width: 100%;
+    margin-bottom: 70px;
+  }
+  .techs__block-title {
+    font-size: 30px;
+    line-height: 36px;
+    width: 100%;
+    margin-bottom: 20px;
+    height: auto;
+  }
+  .techs__block-caption {
+    width: auto;
+    height: auto;
+    letter-spacing: 0;
+    font-size: 11px;
+    margin-bottom: 48px;
+    line-height: 18px;
+  }
+  .techs__list {
+    padding: 0;   
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    gap: 9px;
   }
 }

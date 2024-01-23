@@ -8,3 +8,17 @@
   justify-content: center;
   max-width: 1280px;
 }
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+  .card-list {
+    gap: 30px;
+    margin: 70px 30px 69px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .card-list {
+    gap: 14px;
+    margin: 40px 10px 63px;
+  }  
+}

@@ -9,9 +9,10 @@ export default function Portfolio() {
             <h3 className="title title_portfolio">Студент</h3>
             <div className="portfolio__block-info-foto">
                 <div className="portfolio__block">
-                    <h2 className="portfolio__block-name">Андрей</h2>
-                    <h4 className="portfolio__block-info">Фронтенд-разработчик, 31 год </h4>
-                    <caption className="portfolio__block-about-me">Я родился в Узбекистане, вырос в Оренбурге, живу в Королеве. Закончил факультет цветных металов и золота НИТУ МИСиС. У меня есть жена, детей пока нет. Я люблю готовить еду и слушать музыку. С 2021 года работаю в АО 'Композит'. После окончания курса буду искать свое место в мире Фронтенд-разработки.</caption>
+                    <h2 className="portfolio__block-name">Виталий</h2>
+                    <h4 className="portfolio__block-info">Фронтенд-разработчик, 30 лет</h4>
+                    <p className="portfolio__block-about-me">Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена 
+и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить. С 2015 года работал в компании «СКБ Контур». После того, как прошёл курс по веб-разработке, начал заниматься фриланс-заказами и ушёл с постоянной работы.</p>
                     <caption className="portfolio__block-stack">Github</caption>
                 </div>
                 <img src={profileFoto} alt="Фотография моя в резюме" className="portfolio__foto" />                    

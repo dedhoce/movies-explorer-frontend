@@ -7,14 +7,14 @@
   width: 100%;
   height: 45px;
   border-radius: 3px;
-  font-family: Inter;
+  font-family: 'Inter', 'Arial', sans-serif;;
   font-size: 14px;
   font-weight: 500;
   line-height: 17px;
   text-align: center;
   color: #ffffff;
   opacity: .8;
-  transform: opacity .5s else;  
+  transition: opacity .5s ease;  
   cursor: pointer;
 }
 
@@ -24,4 +24,14 @@
 
 .regist__button-submit:hover {
   opacity: 1;
+}
+
+@media screen and (min-width: 320px) and (max-width: 450px) {
+  .regist__button-submit {
+    margin-top: 157px;
+    font-size: 12px;
+  }  
+  .regist__button-submit_margin-top {
+    margin-top: 267px;
+  }
 }
