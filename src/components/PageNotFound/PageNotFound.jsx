@@ -1,4 +1,5 @@
 import './PageNotFound.css';
+import { NavLink } from 'react-router-dom';
 
 export default function PageNotFound() {
     function handleReturnBack() {
@@ -8,10 +9,10 @@ export default function PageNotFound() {
     }
 
     return (
-        <div className="page">
+        <section className="page">
             <h1 className="page__title">404</h1>
-            <caption className="page__caption">Страница не найдена</caption>
-            <a href="#" className="page__link" onClick={handleReturnBack}>Назад</a>
-        </div>
+            <caption className="page__caption">Страница не найдена</caption>            
+            <NavLink className="page__link" onClick={handleReturnBack}>Назад</NavLink>
+        </section>
     )
 }

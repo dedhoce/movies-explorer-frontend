@@ -5,7 +5,7 @@ import ButtonSubmit from '../../Register/ButtonSubmit/ButtonSubmit';
 
 export default function LoginForm() {
   return (
-    <div className="register-form">
+    <form className="regist">
       <LabelInput
         title="E-mail"
         inputValue="dedhoce@yandex.ru"
@@ -24,6 +24,6 @@ export default function LoginForm() {
         buttonText="Войти"
         moreMarginTop="regist__button-submit_margin-top"
       />
-    </div>
+    </form>
   );
 }

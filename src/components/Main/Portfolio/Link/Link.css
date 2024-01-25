@@ -1,0 +1,19 @@
+.link {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', 'Arial', sans-serif;;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #ffffff;
+    text-decoration: none;
+    opacity: 1;
+    cursor: pointer;
+    transition: opacity .5s ease;
+  }
+  
+  .link:hover {
+    opacity: .7;
+  }

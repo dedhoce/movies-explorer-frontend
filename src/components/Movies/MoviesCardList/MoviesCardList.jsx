@@ -11,7 +11,7 @@ export default function MoviesCardList({
   const time = (width < 500 && width >= 320) ? 5 : (width <= 768 && width >= 500) ? 8 : 12;
 
   return (
-    <div className="card-list">
+    <section className="card-list">
       {constantMovies.map(({ image, title, times }, i) => {
         if (i < time) {                        
           return (
@@ -27,6 +27,6 @@ export default function MoviesCardList({
         }
         return
       })}
-    </div>
+    </section>
   );
 }

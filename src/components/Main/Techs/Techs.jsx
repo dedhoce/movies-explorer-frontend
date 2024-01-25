@@ -2,8 +2,7 @@ import './Techs.css'
 
 export default function Techs() {
     return (
-        <div className="techs" name="techs">
-            <a name="techs"></a>
+        <section className="techs" id="techs">            
             <h3 className="title title_techs">Технологии</h3>
             <div className="techs__block">
                 <h2 className="techs__block-title">7 технологий</h2>
@@ -18,6 +17,6 @@ export default function Techs() {
                     <li className="techs__list-item">mongoDB</li>
                 </ul>
             </div>            
-        </div>
+        </section>
     )
 }

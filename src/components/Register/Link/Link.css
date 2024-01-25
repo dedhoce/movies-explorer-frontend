@@ -23,7 +23,7 @@
   color: #4285f4;
   text-decoration: none;
   opacity: .7;
-  transform: opacity .5s else;
+  transition: opacity .5s ease;
 }
 
 .link-block__title_link:hover {

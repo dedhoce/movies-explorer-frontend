@@ -1,11 +1,7 @@
-import Header from '../Header/Header';
 import ProfileForm from './ProfileForm/ProfileForm';
 
-export default function Profile({isLogin}) {
+export default function Profile() {
   return (
-    <>
-      <Header isLogin={isLogin} />
-      <ProfileForm />
-    </>
+    <ProfileForm />    
   );
 }

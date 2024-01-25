@@ -8,7 +8,7 @@ export default function Register() {
     <div className="register">
       <HeaderReg title="Добро пожаловать!" />
       <RegisterForm />
-      <Link title="Уже зарегестрированы?" linkMessage="Войти"/>
+      <Link title="Уже зарегестрированы?" linkMessage="Войти" href="/signin"/>
     </div>
   );
 }

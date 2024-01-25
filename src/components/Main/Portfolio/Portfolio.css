@@ -1,12 +1,12 @@
 .portfolio {
-  max-width: 1280px;
-  height: 1079px;
+  max-width: 1280px; 
   padding: 0 70px;
   margin: 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   background-color: #202020;
+  margin-bottom: 103px
 }
 
 .portfolio__list-title {
@@ -82,18 +82,6 @@
   border-radius: 10px;
 }
 
-.portfolio__block-stack {
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', 'Arial', sans-serif;;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 17px;
-  letter-spacing: 0em;
-  text-align: left;
-  color: #ffffff;
-}
-
 .portfolio__block-name {
   margin: 0;
   margin-bottom: 18px;
@@ -144,11 +132,11 @@
   width: 600px;
 }
 
-@media screen and (min-width: 320px) and (max-width: 768px) {
+@media screen and (min-width: 690px) and (max-width: 768px) {
   .portfolio {
-    max-width: 768px;
-    height: 994px;
+    max-width: 768px;    
     padding: 0 50px;
+    margin-bottom: 69px
   }
   .portfolio__block-name {
     font-size: 40px;
@@ -157,7 +145,7 @@
   }
   .portfolio__block-info {
     font-size: 12px;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
   }
   .portfolio__block-about-me {
     font-size: 12px;
@@ -180,9 +168,12 @@
   }
 }
 
-@media screen and (min-width: 320px) and (max-width: 700px){
+@media screen and (min-width: 320px) and (max-width: 689px){
   .portfolio__foto {
     order: 1;
+    width: 292px;
+    height: 354px;
+    margin-bottom: 29px;
   }
   .portfolio__block {
     order: 2;
@@ -193,25 +184,25 @@
   }
   .portfolio {
     margin: 0 auto;
-    max-width: 320px;
-    height: auto;
+    max-width: 320px;    
     padding: 0 15px;
   }
   .portfolio__block {
     width: auto;
   }
+  .portfolio__block-info{
+    font-size: 11px;
+    margin-bottom: 18px;
+  }
   .portfolio__block-about-me {
     width: auto;
     line-height: 16px;
     margin-bottom: 40px;
-  }
-  .portfolio__foto {
-    width: 292px;
-    height: 354px;
-    margin-bottom: 39px;
-  }
+    font-size: 11px;
+  }  
   .portfolio__block-name {
     font-size: 30px;
+    margin-bottom: 7px;
   }
   .portfolio__list-title {
     font-size: 14px;

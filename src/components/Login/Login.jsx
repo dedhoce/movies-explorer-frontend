@@ -5,10 +5,10 @@ import Link from '../Register/Link/Link';
 
 export default function Login() {
   return (
-    <div className="register">
+    <section className="register">
       <HeaderReg title="Рады видеть!" />
       <LoginForm />
-      <Link title="Еще не зарегестрированы?" linkMessage="Регистрация"/>
-    </div>
+      <Link title="Еще не зарегестрированы?" linkMessage="Регистрация" href="/signup"/>
+    </section>
   );
 }

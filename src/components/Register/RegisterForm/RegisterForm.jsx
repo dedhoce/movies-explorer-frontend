@@ -4,7 +4,7 @@ import ButtonSubmit from '../ButtonSubmit/ButtonSubmit';
 
 export default function RegisterForm() {
   return (
-    <div className="register-form">
+    <form className="regist">
       <LabelInput
         title="Имя"
         inputValue="Андрей"
@@ -27,6 +27,6 @@ export default function RegisterForm() {
         inputType="password"
       />
       <ButtonSubmit buttonText="Зарегестрироваться" />
-    </div>
+    </form>
   );
 }

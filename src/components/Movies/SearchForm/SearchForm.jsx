@@ -4,12 +4,13 @@ import './SearchForm.css';
 export default function SearchForm() {
   const [isActiveFilter, setIsActiveFilter] = useState(false);
 
-  function handleFilterToogle() {
+  function handleFilterToogle(e) {
+    e.preventDefault()
     isActiveFilter ? setIsActiveFilter(false) : setIsActiveFilter(true);
   }
 
   return (
-    <div className="search-form">
+    <form className="search-form">
       <input type="text" className="search-form__input" placeholder="Фильм" />
       <button className="search-form__submit"></button>
       <div className="search-form__filter">
@@ -22,6 +23,6 @@ export default function SearchForm() {
         ></button>
         <span className="search-form__filter-title">Короткометражки</span>
       </div>
-    </div>
+    </form>
   );
 }

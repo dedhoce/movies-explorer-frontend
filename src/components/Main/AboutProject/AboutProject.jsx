@@ -2,8 +2,7 @@ import './AboutProject.css'
 
 export default function AboutProject() {
     return (
-        <div className="about-project">
-            <a name="about-project" ></a>            
+        <section className="about-project" id="about-project">                        
             <h3 className="title">О проекте</h3>                       
             <div className="about-project__info">
                 <div className="about-project__info-block">
@@ -25,6 +24,6 @@ export default function AboutProject() {
                     <p className="about-project__visual-title">Front-end</p>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
