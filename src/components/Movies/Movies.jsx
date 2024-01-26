@@ -3,7 +3,7 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';
 import ButtonStill from './ButtonStill/ButtonStill';
 import { constantMovies } from '../../constants/constantMovies';
 
-export default function Movies({ isLogin }) {
+export default function Movies() {
   return (
     <>      
       <SearchForm />

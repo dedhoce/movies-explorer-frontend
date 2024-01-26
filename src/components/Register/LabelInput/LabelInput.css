@@ -45,6 +45,8 @@
 
 .regist__input-error {
   display: none;
+  opacity: 0;
+  visibility: hidden;
   font-family: 'Inter', 'Arial', sans-serif;;
   font-size: 10px;
   font-weight: 400;
@@ -56,4 +58,6 @@
 
 .regist__input-error_enabled {
   display: block;
+  opacity: 1;
+  visibility: visible;
 }

@@ -1,32 +1,48 @@
 import './RegisterForm.css';
 import LabelInput from '../LabelInput/LabelInput';
 import ButtonSubmit from '../ButtonSubmit/ButtonSubmit';
+import { useFormAndValidation } from '../../../utils/hoocks/useFormAndValidation';
 
 export default function RegisterForm() {
+  const { values, handleChange, errors, isValid } =
+    useFormAndValidation();
+
   return (
     <form className="regist">
       <LabelInput
+        name="name"
         title="Имя"
-        inputValue="Андрей"
-        error="Что-то пошло не так..."
-        isError={false}
+        value={values.name ? values.name : ''}
+        error={errors.name}        
         inputType="text"
+        isValid={isValid}
+        onChange={handleChange}
+        minLength="2"
+        maxLength="30"
       />
       <LabelInput
+        name="email"
         title="E-mail"
-        inputValue="dedhoce@yandex.ru"
-        error="Что-то пошло не так..."
-        isError={false}
+        value={values.email ? values.email : ''}
+        error={errors.email}        
         inputType="email"
+        isValid={isValid}
+        onChange={handleChange}
+        minLength=""
+        maxLength=""
       />
       <LabelInput
+        name="password"
         title="Пароль"
-        inputValue="11111111111111"
-        error="Что-то пошло не так..."
-        isError={true}
+        value={values.password ? values.password : ''}
+        error={errors.password}        
         inputType="password"
+        isValid={isValid}
+        onChange={handleChange}
+        minLength=""
+        maxLength=""
       />
-      <ButtonSubmit buttonText="Зарегестрироваться" />
+      <ButtonSubmit isValid={isValid} buttonText="Зарегестрироваться" />
     </form>
   );
 }

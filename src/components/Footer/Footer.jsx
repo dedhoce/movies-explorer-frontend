@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 export default function Footer() {
 const location = useLocation()
   return (
-    location.pathname ===  "profile" ? 
+    location.pathname !==  "/profile" ? 
     (<footer className="footer">
       <p className="footer__title">
         Учебный проект Яндекс.Практикум х BeatFilm.
