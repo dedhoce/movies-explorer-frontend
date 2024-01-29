@@ -26,7 +26,7 @@ export default function Menu({isOpenMenu, closeMenu}) {
 }, [isOpenMenu])
 
   return (
-    <section className={`menu ${isOpenMenu ? "menu_active" : ""}`}>
+    <div className={`menu ${isOpenMenu ? "menu_active" : ""}`}>
       <button onClick={closeMenu} className='menu__close'></button>
       <nav className="menu__links">
         <NavLink
@@ -58,6 +58,6 @@ export default function Menu({isOpenMenu, closeMenu}) {
         </NavLink>
       </nav>
       <Account closeMenu={closeMenu}/>
-    </section>
+    </div>
   );
 }

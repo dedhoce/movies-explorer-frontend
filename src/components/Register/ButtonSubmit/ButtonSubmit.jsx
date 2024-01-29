@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './ButtonSubmit.css';
 
-export default function ButtonSubmit({ buttonText, moreMarginTop, isValid }) {
+export default function ButtonSubmit({ buttonText, marginRegist, marginLogin, isValid }) {
   const [isError, setIsError] = useState(false);
 
   function handleButtonSubmit(e) {
@@ -13,7 +13,8 @@ export default function ButtonSubmit({ buttonText, moreMarginTop, isValid }) {
     <div
       className={
         'regist__block-submit ' +
-        (moreMarginTop ? 'regist__block-submit_margin-top' : '')
+        (marginLogin ? 'regist__block-submit_login_margin-top' : '')
+        + (marginRegist  ? 'regist__block-submit_regist_margin-top' : '')
       }
     >
       <span

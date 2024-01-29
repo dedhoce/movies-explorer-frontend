@@ -4,14 +4,14 @@ import AboutProject from './AboutProject/AboutProject';
 import Techs from './Techs/Techs';
 import Portfolio from './Portfolio/Portfolio';
 
-export default function Main({isLogin}) {
+export default function Main() {
   return (
-    <main>      
+    <>      
       <Promo />   
       <NavTab /> 
       <AboutProject />
       <Techs />
       <Portfolio />      
-    </main>
+    </>
   );
 }

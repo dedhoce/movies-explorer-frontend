@@ -6,7 +6,7 @@ import ProfileLabelInput from './ProfileLabelInput/ProfileLabelInput';
 export default function ProfileForm() {
   const [isActive, setIsActive] = useState(true);
 
-  const { values, handleChange, errors, isValid } = useFormAndValidation();
+  const { values, handleChange, errors } = useFormAndValidation(); // isValid использовать потом на кнопке сабмита
 
   function handleEdit(e) {
     e.preventDefault();
@@ -33,9 +33,7 @@ export default function ProfileForm() {
         placeholder="Введите e-mail"
         value={values.email}
         error={errors.email}
-        onChange={handleChange}
-        minLength=""
-        maxLength=""
+        onChange={handleChange}        
       />
       <span
         className={`profile-form__error ${
@@ -47,9 +45,9 @@ export default function ProfileForm() {
       <button
         onClick={handleEdit}
         className={`profile-form__button ${
-          !isValid ? 'profile-form__button_disable' : ''
+          !isActive ? 'profile-form__button_disable' : ''
         }`}
-        disabled={!isValid ? true : false}
+        // disabled={!isValid ? true : false}
       >
         Редактировать
       </button>

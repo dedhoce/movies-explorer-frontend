@@ -11,7 +11,7 @@ export default function PageNotFound() {
     return (
         <section className="page">
             <h1 className="page__title">404</h1>
-            <caption className="page__caption">Страница не найдена</caption>            
+            <p className="page__caption">Страница не найдена</p>            
             <NavLink className="page__link" onClick={handleReturnBack}>Назад</NavLink>
         </section>
     )

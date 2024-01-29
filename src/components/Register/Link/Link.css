@@ -22,12 +22,12 @@
 .link-block__title_link {
   color: #4285f4;
   text-decoration: none;
-  opacity: .7;
+  opacity: 1;
   transition: opacity .5s ease;
 }
 
 .link-block__title_link:hover {
-  opacity: 1;
+  opacity: .7;
 }
 
 @media screen and (max-width: 320px) {

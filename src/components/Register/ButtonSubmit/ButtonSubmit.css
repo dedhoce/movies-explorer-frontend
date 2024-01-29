@@ -20,7 +20,7 @@
   line-height: 17px;
   text-align: center;
   color: #ffffff;
-  opacity: .8;
+  opacity: 1;
   transition: opacity .5s ease;  
   cursor: pointer;
 }
@@ -30,12 +30,16 @@
   color: #C2C2C2;
 }
 
-.regist__block-submit_margin-top {
-  margin-top: 159px;
+.regist__block-submit_login_margin-top {
+  margin-top: 179px;
+}
+
+.regist__block-submit_regist_margin-top {
+  margin-top: 91px;
 }
 
 .regist__button-submit:hover {
-  opacity: 1;
+  opacity: .8;
 }
 
 .regist__error-submit {
@@ -60,11 +64,13 @@
 }
 
 @media screen and (min-width: 320px) and (max-width: 450px) {
-  .regist__button-submit {
-    margin-top: 157px;
+  .regist__button-submit {    
     font-size: 12px;
   }  
-  .regist__block-submit_margin-top {
+  .regist__block-submit_login_margin-top {
     margin-top: 267px;
+  }
+  .regist__block-submit_regist_margin-top {
+    margin-top: 179px;
   }
 }

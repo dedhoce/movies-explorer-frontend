@@ -12,8 +12,8 @@ export default function ProfileLabelInput({
   maxLength,
 }) {
   return (
-    <label className="profile-form__input-label">
-      <div className="profile-form__label-block">
+    <label className="profile-form__input-label" >
+      <span className="profile-form__label-block">
         <span className="profile-form__input-title">{title}</span>
         <input
           type={typeInput}
@@ -26,7 +26,7 @@ export default function ProfileLabelInput({
           maxLength={maxLength}
           required
         />
-      </div>
+      </span>
       <span
         className={`profile-form__error ${
           error ? 'profile-form__error_active' : ''

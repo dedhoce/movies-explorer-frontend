@@ -1,12 +1,9 @@
 import './Footer.css';
 import Link from '../Main/Portfolio/Link/Link';
-import { useLocation } from 'react-router-dom';
 
 export default function Footer() {
-const location = useLocation()
-  return (
-    location.pathname !==  "/profile" ? 
-    (<footer className="footer">
+  return (     
+    <footer className="footer">
       <p className="footer__title">
         Учебный проект Яндекс.Практикум х BeatFilm.
       </p>
@@ -17,6 +14,6 @@ const location = useLocation()
           <Link to="https://github.com/dedhoce?tab=repositories" placeFooter='footer__item' text="Github"/>
         </nav>
       </div>
-    </footer>) : <></>  
+    </footer> 
   );
 }

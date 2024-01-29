@@ -1,6 +1,6 @@
 .promo {
   display: flex;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   background-color: #073042;
   max-width: 100%;

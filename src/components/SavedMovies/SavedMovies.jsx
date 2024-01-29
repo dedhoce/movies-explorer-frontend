@@ -6,7 +6,7 @@ export default function SavedMovies() {
   return (
     <>      
       <SearchForm />
-      <MoviesCardList constantMovies={constantSavedMovies} isDelete={true} />      
+      <MoviesCardList constantMovies={constantSavedMovies} isDelete={true} moreMarginBottom/>      
     </>
   );
 }

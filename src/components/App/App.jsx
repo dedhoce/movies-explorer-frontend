@@ -11,21 +11,21 @@ import { Layout } from '../Layout';
 import ProfileForm from '../ProfileForm/ProfileForm';
 
 export default function App() {
-  const isLogin = true;
+  
   return (
     <div className="content">
       <Routes>
-        <Route path='/' element={<Layout />}> {/* для перехода в залогиненый header передать props в Layout isLogin={isLogin}*/}
+        <Route path='/' element={<Layout />}> {/* для перехода в залогиненый header передать props в Layout isLogin={true}*/}
           <Route path="" element={<Main />} />
-          <Route path="movies" element={<Movies isLogin={isLogin} />} />
+          <Route path="movies" element={<Movies />} />
           <Route
             path="saved-movies"
-            element={<SavedMovies isLogin={isLogin} />} />
-          <Route path="profile" element={<ProfileForm />} />
-        </Route>        
-        <Route path="/*" element={<PageNotFound />} />        
-        <Route path="/signin" element={<Login />} />
-        <Route path="/signup" element={<Register />} />        
+            element={<SavedMovies />} />
+          <Route path="profile" element={<ProfileForm />} />                 
+          <Route path="signin" element={<Login />} />
+          <Route path="signup" element={<Register />} />
+          <Route path="*" element={<PageNotFound />} /> 
+        </Route>               
       </Routes>
     </div>
   );

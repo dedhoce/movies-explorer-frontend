@@ -6,12 +6,13 @@ export default function MoviesCardList({
   constantMovies,
   isDelete,
   isSavedMovies,
+  moreMarginBottom
 }) {
   const { width } = useWindowDimensions();
   const time = (width < 500 && width >= 320) ? 5 : (width <= 768 && width >= 500) ? 8 : 12;
 
   return (
-    <section className="card-list">
+    <section className={`card-list ${moreMarginBottom ? 'card-list_more-margin-bottom' : ''}`}>
       {constantMovies.map(({ image, title, times }, i) => {
         if (i < time) {                        
           return (

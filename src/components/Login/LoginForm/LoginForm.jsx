@@ -17,9 +17,7 @@ export default function LoginForm() {
         error={errors.email}        
         inputType="email"
         isValid={isValid}
-        onChange={handleChange}
-        minLength=""
-        maxLength=""
+        onChange={handleChange}        
       />
       <LabelInput
         name="password"
@@ -28,13 +26,11 @@ export default function LoginForm() {
         error={errors.password}        
         inputType="password"
         isValid={isValid}
-        onChange={handleChange}
-        minLength=""
-        maxLength=""
+        onChange={handleChange}        
       />
       <ButtonSubmit
         buttonText="Войти"
-        moreMarginTop="regist__button-submit_margin-top"
+        marginLogin={true}
         isValid={isValid}
       />
     </form>
