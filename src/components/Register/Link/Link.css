@@ -1,0 +1,40 @@
+.link-block {
+  margin: 0;
+  padding: 0;
+  margin-top: 16px;
+  margin-bottom: 70px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.link-block__title {
+  margin: 0;
+  padding: 0;
+  color: #8b8b8b;
+  font-family: 'Inter', 'Arial', sans-serif;;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  text-align: center;  
+}
+
+.link-block__title_link {
+  color: #4285f4;
+  text-decoration: none;
+  opacity: 1;
+  transition: opacity .5s ease;
+}
+
+.link-block__title_link:hover {
+  opacity: .7;
+}
+
+@media screen and (max-width: 320px) {
+  .link-block__title {
+    font-size: 12px;
+  }  
+  .link-block {
+    margin-top: 13px;
+  }
+}

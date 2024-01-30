@@ -1,0 +1,141 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1280px;
+  height: 74px;
+  background-color: #073042;
+  margin: 0;
+  padding: 0 70px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.header_dark {
+  background-color: #202020;
+}
+
+.header__logo-nav {
+  display: flex;
+  align-items: center;
+  gap: 44px;
+}
+
+.header__buttons {
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.header__button {
+  margin: 0;
+  padding: 0;
+  width: 76px;
+  height: 32px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: center;
+  padding-top: 8px;
+  box-sizing: border-box;
+  text-decoration: none;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  cursor: pointer;
+}
+
+.header__button:hover {
+  opacity: 0.7;
+}
+
+.header__button_signup {
+  margin-right: 30px;  
+  color: white;
+}
+
+.header__button_signin {
+  background-color: #3ddc84;
+  border-radius: 3px;
+  color: black;
+}
+
+.header__links {
+  margin: 0;
+  padding: 0;
+  width: 212px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.header__link {
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #fff;
+  text-decoration: none;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.header__link:hover {
+  opacity: 0.7;
+}
+
+.header__link_active {
+  font-weight: 500;
+}
+
+.header__menu {
+  width: 44px;
+  height: 44px;
+  background-image: url('../../image/menu-icon.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: #073042;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.header__menu_dark {
+  background-color: #202020;
+}
+
+.header__menu:hover {
+  opacity: 0.8;
+}
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+  .header {
+    max-width: 768px;
+    padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header {
+    max-width: 320px;
+    padding: 0 15px;
+  }
+  .header__button-signin {
+    width: 53px;
+    height: 26px;
+  }
+  .header__button-signup {
+    width: 48px;
+    height: auto;
+    font-size: 10px;
+  }
+  .header__menu {
+    margin-right: 9px;
+    width: 22px;
+  }
+}

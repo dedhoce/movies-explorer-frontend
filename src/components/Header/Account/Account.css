@@ -1,0 +1,36 @@
+.account {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 11px;
+  box-sizing: border-box;
+  text-decoration: none;
+  width: 100px;
+  height: 32px;
+  font-family: 'Inter', 'Arial', sans-serif;;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 12px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #fff;
+  z-index: 5;
+  opacity: 1;
+  transition: opacity .5s ease;
+  cursor: pointer;
+}
+
+.account:hover {
+  opacity: .7;
+}
+
+.account__icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50px;
+  background-color: #313131;
+  background-image: url('../../../image/accaunt-icon.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 10.67px;
+}

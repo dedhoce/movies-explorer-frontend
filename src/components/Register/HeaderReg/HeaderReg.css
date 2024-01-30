@@ -1,0 +1,31 @@
+.header-reg {
+  max-width: 1280px;  
+  background-color: #202020;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.header-reg__title {
+  margin: 0;
+  margin-bottom: 40px;
+  padding: 0;
+  font-family: 'Inter', 'Arial', sans-serif;;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 29px;  
+  width: 396px;
+  height: 29px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 450px){
+  .header-reg {
+    align-items: center;
+    gap: 49px;
+  }
+  .header-reg__title {
+    width: 100%;
+    margin-bottom: 81px;
+  }
+}
