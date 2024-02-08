@@ -7,6 +7,7 @@ export default function SearchForm({setIsShortMovies, isShortMovies, setResultSe
     e.preventDefault()
     isShortMovies ? setIsShortMovies(false) : setIsShortMovies(true);
   }
+
   const [value, setValue] = useState()
 
   useEffect(() => {
@@ -16,6 +17,10 @@ export default function SearchForm({setIsShortMovies, isShortMovies, setResultSe
   function handleSearch(e) {
     setValue(e.target.value)
   }
+  useEffect(() => {
+    console.log(isShortMovies)
+  },[isShortMovies])
+
 
   return (
     <form className="search-form">
@@ -24,10 +29,7 @@ export default function SearchForm({setIsShortMovies, isShortMovies, setResultSe
       <div className="search-form__filter">
         <button
           onClick={handleFilterToogle}
-          className={
-            'search-form__filter-button' +
-            (isShortMovies ? ' search-form__filter-button_active' : '')
-          }
+          className={`search-form__filter-button ${isShortMovies ? ' search-form__filter-button_active' : ''}`}
         ></button>
         <span className="search-form__filter-title">Короткометражки</span>
       </div>

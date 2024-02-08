@@ -45,16 +45,17 @@ export default function MoviesCard({
 
   useEffect(() => {
     setArrIdSavedMovies(JSON.parse(localStorage.getItem('savedMovies'))?.map((item) => item.movieId))
-  }, [])
-  
+  }, [])  
 
   return (
     <div className="card">
-      <img
-        className="card__image"
-        src={image}
-        alt={`Картинка из фильма ${title}`}
-      />
+      <a href={trailerLink}>
+        <img
+          className="card__image"        
+          src={image}
+          alt={`Картинка из фильма ${title}`}
+        />
+      </a>
       <div className="card__group">
         <h2 className="card__title">{title}</h2>
         {!isDelete ? (

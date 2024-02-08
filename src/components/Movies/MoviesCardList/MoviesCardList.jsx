@@ -9,20 +9,17 @@ export default function MoviesCardList({
   movies,
   savedMovies,
   handleAddMovie,
-  visibleMovies,
-  setIsActiveButtonStill,
+  visibleMovies,  
   handleMovieDelete,
   isError,
   errorText,
 }) {
-  const moviesArr = movies ? movies : savedMovies;
-  const moviesMax = moviesArr?.length - 1;
-
-  useEffect(() => {
-    if (visibleMovies >= moviesMax) {
-      setIsActiveButtonStill(false);
-    }
-  }, [visibleMovies]);
+  
+  const [moviesArr, setMoviesArr] = useState([])
+  
+  useEffect(() => {   
+    setMoviesArr(movies || savedMovies);   
+  }, [movies, savedMovies]);
 
   const [isNotFound, setIsNotFound] = useState(false);
 

@@ -13,19 +13,16 @@ export default function Movies({ movies, handleAddMovie, isPreloader, isNotLoadM
   // колличество видео, добавляемых кнопкой "Еще"
   const [visibleMoviesStill, setVisibleMoviesStill] = useState(0);
   // активность кнопки "Еще", зависит от сравнения отрисованных видео с колличеством видео в объекте
-  const [isActiveButtonStill, setIsActiveButtonStill] = useState(true);
-  // состояние кнопки фильтрации "короткометражки"
-  const [isShortMovies, setIsShortMovies] = useState(false);
-  // содержимое поисковой строки при сабмите элемента поиска
-  const [search, setSearch] = useState(''); 
+  const [isActiveButtonStill, setIsActiveButtonStill] = useState(true);  
 
-  const { setPage, writeDataState, setMovies, arrResultSearchMovies } = useSearchByForm()
-  
+  const { setResultSearch, setIsActiveFilter, arrResultSearchMovies, resultSearch, isActiveFilter } = useSearchByForm(movies)  
+
   useEffect(() => {
-    setPage('movies')
-    writeDataState(search, isShortMovies)    
-    setMovies(movies)    
-  }, [search, isShortMovies])
+  if (visibleMovies >= arrResultSearchMovies.length) {
+    console.log(visibleMovies)
+    setIsActiveButtonStill(false);
+  } else {setIsActiveButtonStill(true)}
+  }, [visibleMovies, arrResultSearchMovies]);
 
   useEffect(() => {
     if (width < 500 && width >= 320) {
@@ -47,10 +44,10 @@ export default function Movies({ movies, handleAddMovie, isPreloader, isNotLoadM
   return (
     <>
       <SearchForm
-        setIsShortMovies={setIsShortMovies}
-        isShortMovies={isShortMovies}
-        setResultSearch={setSearch}
-        resultSearch={search}
+        setIsShortMovies={setIsActiveFilter}
+        isShortMovies={isActiveFilter}
+        setResultSearch={setResultSearch}
+        resultSearch={resultSearch}
       />
       {isPreloader ? (
         <Preloader />
@@ -58,8 +55,7 @@ export default function Movies({ movies, handleAddMovie, isPreloader, isNotLoadM
         <MoviesCardList
           movies={ arrResultSearchMovies }
           visibleMovies={visibleMovies}
-          visibleMoviesStill={visibleMoviesStill}
-          setIsActiveButtonStill={setIsActiveButtonStill}
+          visibleMoviesStill={visibleMoviesStill}          
           handleAddMovie={handleAddMovie}
           errorText='Во время запроса произошла ошибка. Возможно проблема с соединением или сервер не доступен. Подождите немного и попробуйте еще раз'
           isError={isNotLoadMovies}

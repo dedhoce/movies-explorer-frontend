@@ -8,7 +8,7 @@ export default function Account({closeMenu}) {
   const currentUser = useContext(CurrentUserContext)
   return (
     <NavLink to="/profile" className="account" onClick={closeMenu ? closeMenu : ''}>
-      {currentUser.name}
+      {currentUser.name || 'Account'}
       <div className="account__icon"></div>
     </NavLink>
   );
