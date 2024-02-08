@@ -1,14 +1,7 @@
-import { useState } from 'react';
 import './ButtonSubmit.css';
 
-export default function ButtonSubmit({ buttonText, marginRegist, marginLogin, isValid }) {
-  const [isError, setIsError] = useState(false);
-
-  function handleButtonSubmit(e) {
-    e.preventDefault();
-    setIsError(true);
-  }
-
+export default function ButtonSubmit({ buttonText, marginRegist, marginLogin, isValid, handleButtonSubmit, error }) {
+    
   return (
     <div
       className={
@@ -19,10 +12,10 @@ export default function ButtonSubmit({ buttonText, marginRegist, marginLogin, is
     >
       <span
         className={`regist__error-submit ${
-          isError ? 'regist__error-submit_active' : ''
+          error ? 'regist__error-submit_active' : ''
         }`}
       >
-        Что-то пошло не так...
+        {error}
       </span>
       <button
         onClick={handleButtonSubmit}

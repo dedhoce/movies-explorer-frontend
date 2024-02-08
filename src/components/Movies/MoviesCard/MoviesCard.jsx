@@ -1,12 +1,52 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './MoviesCard.css';
 
-export default function MoviesCard({ image, title, times, isDelete}) {
-  const [isSavedMovies, setIsSavedMovies] = useState(false)
+export default function MoviesCard({
+  id,
+  image,
+  title,
+  times,
+  isDelete,
+  handleAddMovie,
+  movie,
+  handleMovieDelete,
+}) {
+  const {
+    country,
+    director,
+    duration,
+    year,
+    description,      
+    trailerLink,       
+    nameRU,
+    nameEN,
+  } = movie;
 
-  function handleToogleLike() {
-    isSavedMovies ? setIsSavedMovies(false) : setIsSavedMovies(true)    
+  const dataMovie = {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    thumbnail: image, 
+    movieId: id,
+    nameRU,
+    nameEN
   }
+
+  function handleAddMovieData() {    
+    handleAddMovie(dataMovie)
+    setArrIdSavedMovies([id, ...arrIdSavedMovies])
+  }
+  
+  const [arrIdSavedMovies, setArrIdSavedMovies] = useState([])
+
+  useEffect(() => {
+    setArrIdSavedMovies(JSON.parse(localStorage.getItem('savedMovies'))?.map((item) => item.movieId))
+  }, [])
+  
 
   return (
     <div className="card">
@@ -18,11 +58,20 @@ export default function MoviesCard({ image, title, times, isDelete}) {
       <div className="card__group">
         <h2 className="card__title">{title}</h2>
         {!isDelete ? (
-          <button onClick={handleToogleLike}
-            className={'card__like' + (isSavedMovies ? ' card__like_active' : '')}
+          <button
+            onClick={!arrIdSavedMovies?.includes(id) ? handleAddMovieData : undefined}
+            className={
+              'card__like' +
+              (arrIdSavedMovies?.includes(id)
+                ? ' card__like_active'
+                : '')
+            }
           ></button>
         ) : (
-          <button className="card__like card__like_delete"></button>
+          <button
+            onClick={() => handleMovieDelete(id)}
+            className="card__like card__like_delete"
+          ></button>
         )}
       </div>
       <span className="card__times">{times}</span>

@@ -3,11 +3,11 @@ import RegisterForm from './RegisterForm/RegisterForm';
 import Link from './Link/Link';
 import './Register.css';
 
-export default function Register() {
+export default function Register({handleRegisterUser}) {
   return (
     <div className="register">
       <HeaderReg title="Добро пожаловать!" />
-      <RegisterForm />
+      <RegisterForm handleRegisterUser={handleRegisterUser}/>
       <Link title="Уже зарегестрированы?" linkMessage="Войти" href="/signin"/>
     </div>
   );

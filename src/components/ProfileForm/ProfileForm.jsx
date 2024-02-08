@@ -1,26 +1,45 @@
 import './ProfileForm.css';
-import { useState } from 'react';
+import { useEffect, useContext } from 'react';
 import { useFormAndValidation } from '../../utils/hoocks/useFormAndValidation';
 import ProfileLabelInput from './ProfileLabelInput/ProfileLabelInput';
+import { useLocation } from 'react-router-dom';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-export default function ProfileForm() {
-  const [isActive, setIsActive] = useState(true);
+export default function ProfileForm({
+  handleSignOut,  
+  handleUpdateUser,
+  error,
+}) {
+  //подписываемся на контекст стэйта с данными пользователя
+  const currentUser = useContext(CurrentUserContext)
 
-  const { values, handleChange, errors } = useFormAndValidation(); // isValid использовать потом на кнопке сабмита
+  const { values, handleChange, errors, setValues, isValid } =
+    useFormAndValidation();
+
+  const { name, email } = values;
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/profile') {
+      setValues({ name: currentUser.name, email: currentUser.email });
+    }
+  }, []);
 
   function handleEdit(e) {
-    e.preventDefault();
-    setIsActive(false);
+    e.preventDefault();    
+    handleUpdateUser({ name, email });    
   }
+
   return (
     <form className="profile-form">
-      <h2 className="profile-form__title">Привет, Андрей!</h2>
+      <h2 className="profile-form__title">{`Привет, ${currentUser.name}!`}</h2>
       <ProfileLabelInput
         typeInput="text"
         title="Имя"
         name="name"
         placeholder="Введите имя"
-        value={values.name}
+        value={name}
         error={errors.name}
         onChange={handleChange}
         minLength="2"
@@ -31,27 +50,30 @@ export default function ProfileForm() {
         title="E-mail"
         name="email"
         placeholder="Введите e-mail"
-        value={values.email}
+        value={email}
         error={errors.email}
-        onChange={handleChange}        
+        onChange={handleChange}
       />
       <span
         className={`profile-form__error ${
-          !isActive ? 'profile-form__error_active' : ''
+          error ? 'profile-form__error_active' : ''
         }`}
       >
-        При обновлении профиля произошла ошибка.
+        {error}
       </span>
       <button
         onClick={handleEdit}
         className={`profile-form__button ${
-          !isActive ? 'profile-form__button_disable' : ''
+          !isValid ? 'profile-form__button_disable' : ''
         }`}
-        // disabled={!isValid ? true : false}
+        disabled={!isValid ? true : false}
       >
         Редактировать
       </button>
-      <button className="profile-form__button profile-form__button_red">
+      <button
+        onClick={handleSignOut}
+        className="profile-form__button profile-form__button_red"
+      >
         Выйти из аккаунта
       </button>
     </form>
