@@ -14,15 +14,16 @@ import mainApi from '../../utils/MainApi';
 import auth from '../../utils/auth';
 import ProtectedRouteElement from '../ProtectedRoute';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { LoggedInContext } from '../../contexts/LoggedInContext'
+import { LoggedInContext } from '../../contexts/LoggedInContext';
+import { IsPreloaderContext } from '../../contexts/IsPreloaderContext';
 
 export default function App() {
   /* Глобальный стэйт с данными профиля пользователя. */
   const [currentUser, setCurrentUser] = useState({});
   /** Глобальный стэйт с объектом видео. */
-  const [savedMovies, setSavedMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState(JSON.parse(localStorage.getItem('savedMovies')) || []);
   /** Глобальный стэйт с объектом сохраненых видео. */
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')) || []);
   /** Стэйт авторизации пользователя. */
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -31,23 +32,42 @@ export default function App() {
 
   /** стейт для отображения прелоадера на страницах  */
   const [isPreloader, setIsPreloader] = useState(false);
-  
+
   /**Стэйт ошибки при загрузке видео */
   const [isNotLoadMovies, setIsNotLoadMovies] = useState(false);
 
   const location = useLocation();
 
+  /** Базовая функция для обращения к серверу и обработки ответа,
+   * принимает апи метод и колбэк then так как обрабтка промиса индивидуальная. */
+  const [errorByBack, setErrorByBack] = useState('');
+
+  function callingBaseToServer({ apiMetod, thenCallback }) {
+    setIsPreloader(true);
+    apiMetod
+      .then(thenCallback)
+      .catch((err) => {
+        setErrorByBack(err);
+        if (err.message === 'Failed to fetch') {
+          alert('Ошибка обновления: проверьте соединение с интернетом.');
+        }
+      })
+      .finally(() => {
+        setIsPreloader(false);
+      });
+  }
+
   const handleLogin = () => {
     setLoggedIn(true);
     console.log('handleLogin');
-  };
+  };  
 
   /** использую регулярную проверку на наличии токена в хранилище, как толлько он устаревает или пропадает, то блочим аккаунт */
   useEffect(() => {
     handleTokenCheck();
   }, []);
 
-  const handleTokenCheck = () => {
+  const handleTokenCheck = () => {    
     if (localStorage.getItem('jwt')) {
       const localJWT = localStorage.getItem('jwt');
       callingBaseToServer({
@@ -57,11 +77,9 @@ export default function App() {
             setCurrentUser(res);
             handleLogin();
           }
-        },
+        }
       });
-    } else {
-      navigate('/', { replace: true });
-    }
+    } 
   };
 
   /** при наличии в хранилище обновляем стэйты, при отсутсвии обновляем через запрос */
@@ -84,12 +102,12 @@ export default function App() {
   /** Получаем данные пользователя с сервера по запросу и записываем ответы в глобальные стэйты. */
   useEffect(() => {
     loggedIn &&
-    callingBaseToServer({
-      apiMetod: mainApi.getUserInfo(localStorage.getItem('jwt')),
-      thenCallback: (userInformation) => {
-        setCurrentUser(userInformation);
-      }
-    });
+      callingBaseToServer({
+        apiMetod: mainApi.getUserInfo(localStorage.getItem('jwt')),
+        thenCallback: (userInformation) => {
+          setCurrentUser(userInformation);
+        },
+      });
   }, [loggedIn]);
 
   /** Получаем все видео с сервера по запросу и записываем ответы в localStorage. */
@@ -101,13 +119,11 @@ export default function App() {
         localStorage.setItem('movies', JSON.stringify(initialMovies));
         setIsNotLoadMovies(false);
       },
-      finallyCallback: () => setIsPreloader(false),
     });
   }
 
   /** Получаем сохраненые видео с сервера по запросу и записываем ответы в localStorage. */
   function getInitialSavedMovies() {
-    setIsPreloader(true);
     callingBaseToServer({
       apiMetod: mainApi.getInitialMovies(localStorage.getItem('jwt')),
       thenCallback: (initialSavedMovies) => {
@@ -122,10 +138,9 @@ export default function App() {
             JSON.stringify(initialSavedMovies)
           );
       },
-      finallyCallback: () => setIsPreloader(false) 
-    });    
+    });
   }
-  
+
   /**Первая загрузка видео на странице видео */
   useEffect(() => {
     if (loggedIn && location.pathname === '/movies') {
@@ -165,6 +180,7 @@ export default function App() {
       },
     });
   }
+
   /**  функция для входа в аккаунт, но так как входим по емайл и паролю нужно еще получить имя для отображения в окне
   профиля, следовательно использую useEffect с запросом на получение информации о пользователе */
   function handleEnterUser({ email, password }) {
@@ -180,26 +196,14 @@ export default function App() {
       },
     });
   }
+
   /**Функция выхода из аккаунта с полной очисткой информации о пользователе и localStorage */
   const handleSignOut = () => {
     setLoggedIn(false);
     localStorage.clear();
     setCurrentUser({});
-    navigate('/', { replace: true });    
-  };
-
-  /** Базовая функция для обращения к серверу и обработки ответа,
-   * принимает апи метод и колбэк then так как обрабтка промиса индивидуальная. */
-  const [errorByBack, setErrorByBack] = useState('');
-  function callingBaseToServer({ apiMetod, thenCallback, finallyCallback }) {
-    apiMetod
-      .then(thenCallback)
-      .catch((err) => {
-        setErrorByBack(err);
-        console.log(err)
-      })
-      .finally(finallyCallback ? finallyCallback : () => {});
-  }
+    navigate('/', { replace: true });
+  };  
 
   /** Отправялеем данные видео на сервер, меняем подпись кнопки сабмита при загрузке,
    * полученную карточку подгружаем в глобальный стэйт. */
@@ -235,66 +239,69 @@ export default function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-    <LoggedInContext.Provider value={loggedIn}>
-    <div className="content">
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="" element={<Main />} />
-          <Route
-            path="movies"
-            element={
-              <ProtectedRouteElement
-                component={Movies}                
-                movies={movies}
-                handleAddMovie={handleAddMovie}
-                isPreloader={isPreloader}
-                isNotLoadMovies={isNotLoadMovies}
-              />
-            }
-          />
-          <Route
-            path="saved-movies"
-            element={
-              <ProtectedRouteElement
-                component={SavedMovies}
-                savedMovies={savedMovies}
-                handleMovieDelete={handleMovieDelete}
-                isNotFoundSavedMovies={isNotFoundSavedMovies}
-                isPreloader={isPreloader}
-              />
-            }
-          />
-          <Route
-            path="profile"
-            element={
-              <ProtectedRouteElement
-                component={ProfileForm}
-                handleSignOut={handleSignOut}
-                error={errorByBack}                
-                handleUpdateUser={handleUpdateUser}
-              />
-            }
-          />         
-          <Route
-            path="signin"
-            element={
-              <Login handleEnterUser={handleEnterUser} error={errorByBack} />
-            }
-          />
-          <Route
-            path="signup"
-            element={
-              <Register
-                handleRegisterUser={handleRegisterUser}
-                error={errorByBack}
-              />
-            }
-          />
-          <Route path="*" element={<PageNotFound />} />
-        </Route>
-      </Routes>
-    </div>
-    </LoggedInContext.Provider>
+      <LoggedInContext.Provider value={loggedIn}>
+        <IsPreloaderContext.Provider value={isPreloader}>
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route path="" element={<Main />} />
+                <Route
+                  path="movies"
+                  element={
+                    <ProtectedRouteElement
+                      component={Movies}
+                      movies={movies}
+                      handleAddMovie={handleAddMovie}                      
+                      isNotLoadMovies={isNotLoadMovies}
+                    />
+                  }
+                />
+                <Route
+                  path="saved-movies"
+                  element={
+                    <ProtectedRouteElement
+                      component={SavedMovies}
+                      savedMovies={savedMovies}
+                      handleMovieDelete={handleMovieDelete}
+                      isNotFoundSavedMovies={isNotFoundSavedMovies}                      
+                    />
+                  }
+                />
+                <Route
+                  path="profile"
+                  element={
+                    <ProtectedRouteElement
+                      component={ProfileForm}
+                      handleSignOut={handleSignOut}
+                      error={errorByBack}
+                      handleUpdateUser={handleUpdateUser}
+                    />
+                  }
+                />
+                <Route
+                  path="signin"
+                  element={
+                    <Login
+                      handleEnterUser={handleEnterUser}
+                      error={errorByBack}
+                    />
+                  }
+                />
+                <Route
+                  path="signup"
+                  element={
+                    <Register
+                      handleRegisterUser={handleRegisterUser}
+                      error={errorByBack}
+                    />
+                  }
+                />
+                <Route path="*" element={<PageNotFound />} />
+              </Route>
+            </Routes>
+          </div>
+        </IsPreloaderContext.Provider>
+      </LoggedInContext.Provider>
     </CurrentUserContext.Provider>
   );
 }

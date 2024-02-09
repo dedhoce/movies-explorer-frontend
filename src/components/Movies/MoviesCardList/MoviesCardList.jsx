@@ -6,30 +6,23 @@ import { useEffect, useState } from 'react';
 export default function MoviesCardList({
   isDelete,
   moreMarginBottom,
-  movies,
-  savedMovies,
+  movies,  
   handleAddMovie,
   visibleMovies,  
   handleMovieDelete,
   isError,
   errorText,
-}) {
-  
-  const [moviesArr, setMoviesArr] = useState([])
-  
-  useEffect(() => {   
-    setMoviesArr(movies || savedMovies);   
-  }, [movies, savedMovies]);
+}) { 
 
   const [isNotFound, setIsNotFound] = useState(false);
 
   useEffect(() => {
-    if (movies?.length === 0 || savedMovies?.length === 0) {
+    if (movies?.length === 0) {
       setIsNotFound(true);
     } else {
       setIsNotFound(false);
     }    
-  }, [movies, savedMovies]);
+  }, [movies]);
   
   return (
     <section
@@ -42,7 +35,7 @@ export default function MoviesCardList({
       ) : isNotFound ? (
         <h2 className="card-list__error">Видео не найдены</h2>
       ) : (
-        moviesArr?.map((movie, i) => {
+        movies?.map((movie, i) => {
           const { id, _id, image, nameRU, nameEN, duration } = movie;
 
           if (i < visibleMovies) {

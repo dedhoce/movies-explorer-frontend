@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
 
-function useSearchByForm(movies) {
+function useSearchByForm(movies, page) {
   // содержимое поисковой строки при сабмите элемента поиска
-  const [resultSearch, setResultSearch] = useState(localStorage.getItem(`resultSearch`) || '');
-  const [isActiveFilter, setIsActiveFilter] = useState(localStorage.getItem(`isShortMovies`) || false);  
-  const [resultSearchedMovies, setResultSearchedMovies] = useState(JSON.parse(localStorage.getItem(`resultSearchedMovies`)) || {});
-
-  // запись результата поиска через эффект в стэйт
-  const [arrResultSearchMovies, setArrResultSearchMovies] = useState([]);  
+  const [resultSearch, setResultSearch] = useState(
+    JSON.parse(localStorage.getItem(`${page}-resultSearch`)) || ''
+  );
+  const [isActiveFilter, setIsActiveFilter] = useState(
+    JSON.parse(localStorage.getItem(`${page}-isShortMovies`)) || false
+  );
+  const [resultSearchedMovies, setResultSearchedMovies] = useState(
+    JSON.parse(localStorage.getItem(`${page}-resultSearchedMovies`)) || []
+  );
 
   /**функция возвращает фильмы отсортированные по времени */
   function handleShortMovies(movies) {
-    console.log(movies)
     return movies?.filter((movie) => movie.duration <= 40);
   }
 
@@ -27,51 +29,48 @@ function useSearchByForm(movies) {
   }
 
   /**регулярная проверка и запись результата поиска в стэйт resultSearchedMovies*/
-  useEffect(() => {  
-     
+  useEffect(() => {
     //включение фильтра при найденных фильмах по слову
-    if (isActiveFilter === true && resultSearch.length > 0) {  
-      console.log(1)    
+    if (isActiveFilter === true && resultSearch.length > 0) {
+      console.log(1);
       setResultSearchedMovies(searchMoviesByWord(handleShortMovies(movies)));
     }
     //поиск по фильтру
-    if (isActiveFilter === true && (resultSearch.length === 0)) {      
-      console.log(2)
+    if (isActiveFilter === true && resultSearch.length === 0) {
+      console.log(2);
       setResultSearchedMovies(handleShortMovies(movies));
     }
     //поиск по слову
     if (isActiveFilter === false && resultSearch.length > 0) {
-      console.log(3)
+      console.log(3);
       setResultSearchedMovies(searchMoviesByWord(movies));
     }
     //очистка итога поиска если нет ни слова, ни фильтра
     if (resultSearch.length === 0 && isActiveFilter === false) {
+      console.log(4);
       setResultSearchedMovies(movies);
     }
-  }, [resultSearch, isActiveFilter]);  
+  }, [resultSearch, isActiveFilter]);
 
   /**Запись стейтов в LocalStorage */
-  useEffect(() => {       
-      localStorage.setItem(`resultSearch`, resultSearch);
-      localStorage.setItem(`isShortMovies`, isActiveFilter);
-      localStorage.setItem(
-        `resultSearchedMovies`,
-        JSON.stringify(resultSearchedMovies)
-      )
-  }, [resultSearch, isActiveFilter, resultSearchedMovies]);  
+  useEffect(() => {
+    localStorage.setItem(`${page}-resultSearch`, JSON.stringify(resultSearch));
+    localStorage.setItem(
+      `${page}-isShortMovies`,
+      JSON.stringify(isActiveFilter)
+    );
+    localStorage.setItem(
+      `${page}-resultSearchedMovies`,
+      JSON.stringify(resultSearchedMovies)
+    );
+  }, [resultSearch, isActiveFilter, resultSearchedMovies]);
 
-  useEffect(() => {        
-    if (resultSearchedMovies?.length > 0) {      
-      setArrResultSearchMovies(resultSearchedMovies);
-    }
-  }, [resultSearchedMovies]);
-
-  return {    
+  return {
     setResultSearch,
-    setIsActiveFilter,    
-    arrResultSearchMovies,
+    setIsActiveFilter,
+    resultSearchedMovies,
     resultSearch,
-    isActiveFilter
+    isActiveFilter,
   };
 }
 

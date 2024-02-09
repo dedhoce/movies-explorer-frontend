@@ -4,6 +4,8 @@ import { useFormAndValidation } from '../../utils/hoocks/useFormAndValidation';
 import ProfileLabelInput from './ProfileLabelInput/ProfileLabelInput';
 import { useLocation } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { IsPreloaderContext } from '../../contexts/IsPreloaderContext';
+import Preloader from '../../vendor/Preloader/Preloader';
 
 export default function ProfileForm({
   handleSignOut,  
@@ -12,6 +14,7 @@ export default function ProfileForm({
 }) {
   //подписываемся на контекст стэйта с данными пользователя
   const currentUser = useContext(CurrentUserContext)
+  const isPreloader = useContext(IsPreloaderContext)
 
   const { values, handleChange, errors, setValues, isValid } =
     useFormAndValidation();
@@ -61,15 +64,19 @@ export default function ProfileForm({
       >
         {error}
       </span>
-      <button
-        onClick={handleEdit}
-        className={`profile-form__button ${
-          !isValid ? 'profile-form__button_disable' : ''
-        }`}
-        disabled={!isValid ? true : false}
-      >
-        Редактировать
-      </button>
+      {isPreloader ? 
+        <Preloader/> 
+      : 
+        <button
+          onClick={handleEdit}
+          className={`profile-form__button ${
+            !isValid ? 'profile-form__button_disable' : ''
+          }`}
+          disabled={!isValid ? true : false}
+        >
+          Редактировать
+        </button>
+      }
       <button
         onClick={handleSignOut}
         className="profile-form__button profile-form__button_red"

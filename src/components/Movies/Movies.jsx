@@ -2,44 +2,31 @@ import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import ButtonStill from './ButtonStill/ButtonStill';
 import Preloader from '../../vendor/Preloader/Preloader';
-import { useEffect, useState } from 'react';
-import { useWindowDimensions } from '../../utils/hoocks/useWindowDimensions';
-import { useSearchByForm } from '../../utils/hoocks/useSearchByForm'
+import { useSearchByForm } from '../../utils/hoocks/useSearchByForm';
+import { useButtonStill } from '../../utils/hoocks/useButtonStill';
+import { IsPreloaderContext } from '../../contexts/IsPreloaderContext';
+import { useContext } from 'react';
 
-export default function Movies({ movies, handleAddMovie, isPreloader, isNotLoadMovies }) {
-  const { width } = useWindowDimensions();
-  // колличество отображаемых видео
-  const [visibleMovies, setVisibleMovies] = useState(0);
-  // колличество видео, добавляемых кнопкой "Еще"
-  const [visibleMoviesStill, setVisibleMoviesStill] = useState(0);
-  // активность кнопки "Еще", зависит от сравнения отрисованных видео с колличеством видео в объекте
-  const [isActiveButtonStill, setIsActiveButtonStill] = useState(true);  
+export default function Movies({
+  movies,
+  handleAddMovie,  
+  isNotLoadMovies,
+}) {
+  const isPreloader = useContext(IsPreloaderContext)
+  const {
+    setResultSearch,
+    setIsActiveFilter,
+    resultSearchedMovies,
+    resultSearch,
+    isActiveFilter,
+  } = useSearchByForm(movies, 'movies');
 
-  const { setResultSearch, setIsActiveFilter, arrResultSearchMovies, resultSearch, isActiveFilter } = useSearchByForm(movies)  
-
-  useEffect(() => {
-  if (visibleMovies >= arrResultSearchMovies.length) {
-    console.log(visibleMovies)
-    setIsActiveButtonStill(false);
-  } else {setIsActiveButtonStill(true)}
-  }, [visibleMovies, arrResultSearchMovies]);
-
-  useEffect(() => {
-    if (width < 500 && width >= 320) {
-      setVisibleMovies(5);
-      setVisibleMoviesStill(2);
-    } else if (width <= 768 && width >= 500) {
-      setVisibleMovies(8);
-      setVisibleMoviesStill(3);
-    } else {
-      setVisibleMovies(12);
-      setVisibleMoviesStill(4);
-    }
-  }, [width]);
-
-  function handleVisibleMoviesStill() {
-    setVisibleMovies(visibleMovies + visibleMoviesStill);
-  }
+  const {
+    handleVisibleMoviesStill,
+    isActiveButtonStill,
+    visibleMovies,
+    visibleMoviesStill,
+  } = useButtonStill(resultSearchedMovies)
 
   return (
     <>
@@ -53,11 +40,11 @@ export default function Movies({ movies, handleAddMovie, isPreloader, isNotLoadM
         <Preloader />
       ) : (
         <MoviesCardList
-          movies={ arrResultSearchMovies }
+          movies={resultSearchedMovies}
           visibleMovies={visibleMovies}
-          visibleMoviesStill={visibleMoviesStill}          
+          visibleMoviesStill={visibleMoviesStill}
           handleAddMovie={handleAddMovie}
-          errorText='Во время запроса произошла ошибка. Возможно проблема с соединением или сервер не доступен. Подождите немного и попробуйте еще раз'
+          errorText="Во время запроса произошла ошибка. Возможно проблема с соединением или сервер не доступен. Подождите немного и попробуйте еще раз"
           isError={isNotLoadMovies}
         />
       )}
