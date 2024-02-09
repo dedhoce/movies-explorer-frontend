@@ -34,7 +34,7 @@ class Auth extends BaseApi {
   }
 }
 const auth = new Auth({
-  baseUrl: 'https://api.movies-exp.amelitskov.nomoredomainsmonster.ru',
+  baseUrl: 'https://api.movies-exp.amelitskov.nomoredomainswork.ru',
   //baseUrl: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json',

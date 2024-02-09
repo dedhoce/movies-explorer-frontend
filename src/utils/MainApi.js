@@ -52,7 +52,7 @@ class Api extends BaseApi {
 }
 
 const mainApi = new Api({
-  baseUrl: 'https://api.movies-exp.amelitskov.nomoredomainsmonster.ru',
+  baseUrl: 'https://api.movies-exp.amelitskov.nomoredomainswork.ru',
   //baseUrl: 'http://localhost:3000',
 });
 
