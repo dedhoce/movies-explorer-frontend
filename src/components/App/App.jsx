@@ -176,7 +176,7 @@ export default function App() {
         if (!res._id) {
           return Promise.reject(`Ошибка: ${res.status}`);
         }
-        navigate('/', { replace: true });
+        handleEnterUser({ email, password })
       },
     });
   }
@@ -191,7 +191,7 @@ export default function App() {
         if (res.token) {
           localStorage.setItem('jwt', res.token);
           handleLogin();
-          navigate('/', { replace: true });
+          navigate('/movies', { replace: true });
         }
       },
     });
