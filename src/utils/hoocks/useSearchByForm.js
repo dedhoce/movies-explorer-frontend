@@ -18,12 +18,8 @@ function useSearchByForm(movies, page) {
   }
 
   /**возвращает фильмы отсортированные по названию */
-  function searchMoviesByWord(movies) {
-    const english = /^[A-Za-z0-9]*$/;
-    return movies.filter((movie) => {
-      if (english.test(resultSearch)) {
-        return movie.nameEN.toLowerCase().includes(resultSearch.toLowerCase());
-      }
+  function searchMoviesByWord(movies) {    
+    return movies.filter((movie) => {      
       return movie.nameRU.toLowerCase().includes(resultSearch.toLowerCase());
     });
   }
