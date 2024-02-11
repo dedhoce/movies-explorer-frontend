@@ -1,5 +1,5 @@
 import './ProfileForm.css';
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { useFormAndValidation } from '../../utils/hoocks/useFormAndValidation';
 import ProfileLabelInput from './ProfileLabelInput/ProfileLabelInput';
 import { useLocation } from 'react-router-dom';
@@ -16,6 +16,8 @@ export default function ProfileForm({
   const currentUser = useContext(CurrentUserContext)
   const isPreloader = useContext(IsPreloaderContext)
 
+  const [isChangeUserData, setIsChangeUserData] = useState(false)  
+
   const { values, handleChange, errors, setValues, isValid } =
     useFormAndValidation();
 
@@ -29,8 +31,16 @@ export default function ProfileForm({
     }
   }, []);
 
+  useEffect(() => {
+    if(name === currentUser.name && email === currentUser.email) {
+      setIsChangeUserData(false)
+    } else { 
+      setIsChangeUserData(true)
+    }
+  },[name, email])
+
   function handleEdit(e) {
-    e.preventDefault();    
+    e.preventDefault();        
     handleUpdateUser({ name, email });    
   }
 
@@ -70,11 +80,11 @@ export default function ProfileForm({
         <button
           onClick={handleEdit}
           className={`profile-form__button ${
-            !isValid ? 'profile-form__button_disable' : ''
+            !isValid || !isChangeUserData ? 'profile-form__button_disable' : ''
           }`}
-          disabled={!isValid ? true : false}
+          disabled={!isValid || !isChangeUserData ? true : false}
         >
-          Редактировать
+          {!isChangeUserData ? 'Редактировать нечего' : 'Редактировать'}
         </button>
       }
       <button
