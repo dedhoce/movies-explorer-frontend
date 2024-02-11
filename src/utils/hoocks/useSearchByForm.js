@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function useSearchByForm(movies, page) {
+function useSearchByForm(movies, page) {  
   // содержимое поисковой строки при сабмите элемента поиска
   const [resultSearch, setResultSearch] = useState(
     JSON.parse(localStorage.getItem(`${page}-resultSearch`)) || ''
@@ -27,26 +27,22 @@ function useSearchByForm(movies, page) {
   /**регулярная проверка и запись результата поиска в стэйт resultSearchedMovies*/
   useEffect(() => {
     //включение фильтра при найденных фильмах по слову
-    if (isActiveFilter === true && resultSearch.length > 0) {
-      console.log(1);
+    if (isActiveFilter === true && resultSearch.length > 0) {      
       setResultSearchedMovies(searchMoviesByWord(handleShortMovies(movies)));
     }
     //поиск по фильтру
-    if (isActiveFilter === true && resultSearch.length === 0) {
-      console.log(2);
+    if (isActiveFilter === true && resultSearch.length === 0) {      
       setResultSearchedMovies(handleShortMovies(movies));
     }
     //поиск по слову
-    if (isActiveFilter === false && resultSearch.length > 0) {
-      console.log(3);
+    if (isActiveFilter === false && resultSearch.length > 0) {      
       setResultSearchedMovies(searchMoviesByWord(movies));
     }
     //очистка итога поиска если нет ни слова, ни фильтра
-    if (resultSearch.length === 0 && isActiveFilter === false) {
-      console.log(4);
+    if (resultSearch.length === 0 && isActiveFilter === false) {           
       setResultSearchedMovies(movies);
     }
-  }, [resultSearch, isActiveFilter]);
+  }, [resultSearch, isActiveFilter, movies]);
 
   /**Запись стейтов в LocalStorage */
   useEffect(() => {

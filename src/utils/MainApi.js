@@ -39,8 +39,7 @@ class Api extends BaseApi {
     });
   }
 
-  pushInfoCreateMovie(dataMovie, localJWT) {
-    console.log(dataMovie)
+  pushInfoCreateMovie(dataMovie, localJWT) {    
     return this._request('/movies', {
       method: 'POST',
       headers: this._getHeaders(localJWT),

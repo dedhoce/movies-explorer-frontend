@@ -11,8 +11,11 @@ export default function Movies({
   movies,
   handleAddMovie,  
   isNotLoadMovies,
-}) {
+  handleMovieDelete,
+  arrIdSavedMovies
+}) {  
   const isPreloader = useContext(IsPreloaderContext)
+  
   const {
     setResultSearch,
     setIsActiveFilter,
@@ -36,16 +39,18 @@ export default function Movies({
         setResultSearch={setResultSearch}
         resultSearch={resultSearch}
       />
-      {isPreloader ? (
+      {isPreloader && movies.length === 0 ? (
         <Preloader />
-      ) : (
+      ) : ( 
         <MoviesCardList
           movies={resultSearchedMovies}
           visibleMovies={visibleMovies}
           visibleMoviesStill={visibleMoviesStill}
           handleAddMovie={handleAddMovie}
+          handleMovieDelete={handleMovieDelete}
           errorText="Во время запроса произошла ошибка. Возможно проблема с соединением или сервер не доступен. Подождите немного и попробуйте еще раз"
           isError={isNotLoadMovies}
+          arrIdSavedMovies={arrIdSavedMovies}
         />
       )}
 

@@ -16,6 +16,7 @@ import ProtectedRouteElement from '../ProtectedRoute';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { LoggedInContext } from '../../contexts/LoggedInContext';
 import { IsPreloaderContext } from '../../contexts/IsPreloaderContext';
+import Preloader from '../../vendor/Preloader/Preloader';
 
 export default function App() {
   /* Глобальный стэйт с данными профиля пользователя. */
@@ -41,6 +42,8 @@ export default function App() {
   /** Базовая функция для обращения к серверу и обработки ответа,
    * принимает апи метод и колбэк then так как обрабтка промиса индивидуальная. */
   const [errorByBack, setErrorByBack] = useState('');
+
+  const [arrIdSavedMovies, setArrIdSavedMovies] = useState([]); 
 
   function callingBaseToServer({ apiMetod, thenCallback }) {
     setIsPreloader(true);
@@ -117,6 +120,7 @@ export default function App() {
       apiMetod: moviesApi.getInitialMovies(),
       thenCallback: (initialMovies) => {
         localStorage.setItem('movies', JSON.stringify(initialMovies));
+        setMovies(initialMovies)
         setIsNotLoadMovies(false);
       },
     });
@@ -132,20 +136,25 @@ export default function App() {
           return;
         }
         setIsNotFoundSavedMovies(false);
+        setSavedMovies(initialSavedMovies)
         initialSavedMovies &&
           localStorage.setItem(
             'savedMovies',
             JSON.stringify(initialSavedMovies)
-          );
+          )
       },
     });
   }
 
   /**Первая загрузка видео на странице видео */
-  useEffect(() => {
+  useEffect(() => {      
     if (loggedIn && location.pathname === '/movies') {
-      !localStorage.getItem('movies') && getInitialMovies();
-      !localStorage.getItem('savedMovies') && getInitialSavedMovies();
+      if(localStorage.getItem('movies') === null) {        
+        getInitialMovies()
+      } 
+      if(localStorage.getItem('savedMovies') === null) {        
+        getInitialSavedMovies()
+      }     
     }
   }, [loggedIn, location.pathname]);
 
@@ -214,8 +223,7 @@ export default function App() {
         localStorage.getItem('jwt')
       ),
       thenCallback: (newMovies) => {
-        setSavedMovies([newMovies, ...savedMovies]);
-        localStorage.removeItem('savedMovies');
+        setSavedMovies([newMovies, ...savedMovies]);                       
       },
     });
   }
@@ -223,20 +231,30 @@ export default function App() {
   /** По id карточки отправляем запрос на удаление, после ответа фильтруем карточки
    * в глобальном стэйте по id и возврящаем все кроме той что удалили. */
   function handleMovieDelete(movieId) {
+    console.log(movieId)
     callingBaseToServer({
       apiMetod: mainApi.deleteMovie(movieId, localStorage.getItem('jwt')),
       thenCallback: () => {
         setSavedMovies(
           savedMovies.filter((item) => {
             return item._id !== movieId;
-          })
-        );
-        localStorage.removeItem('savedMovies');
-        // setIdDeleteMovie('');
+          })          
+        );                                       
       },
     });
-  }
+  }  
+  
+  useEffect(() => {
+    loggedIn && localStorage.setItem('savedMovies', JSON.stringify(savedMovies) )
+  }, [savedMovies, loggedIn])
 
+  useEffect(() => {
+    loggedIn && setArrIdSavedMovies(savedMovies?.map(
+      (item) => item.movieId
+    ))
+  }, [savedMovies, loggedIn])
+
+  console.log(arrIdSavedMovies)
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <LoggedInContext.Provider value={loggedIn}>
@@ -244,16 +262,19 @@ export default function App() {
           <div className="content">
             <Routes>
               <Route path="/" element={<Layout />}>
-                <Route path="" element={<Main />} />
+                <Route path="" element={<Main />} />                 
                 <Route
                   path="movies"
-                  element={
+                  element={movies.length > 0 ?
                     <ProtectedRouteElement
                       component={Movies}
                       movies={movies}
-                      handleAddMovie={handleAddMovie}                      
+                      handleAddMovie={handleAddMovie}
+                      handleMovieDelete={handleMovieDelete}                      
                       isNotLoadMovies={isNotLoadMovies}
-                    />
+                      arrIdSavedMovies={arrIdSavedMovies}
+                    /> :
+                    <Preloader />
                   }
                 />
                 <Route

@@ -1,33 +1,33 @@
-import MoviesCard from '../MoviesCard/MoviesCard';
-import './MoviesCardList.css';
-import timeCalculation from '../../../utils/timeCalculation';
-import { useEffect, useState } from 'react';
+import MoviesCard from "../MoviesCard/MoviesCard";
+import "./MoviesCardList.css";
+import timeCalculation from "../../../utils/timeCalculation";
+import { useEffect, useState } from "react";
 
 export default function MoviesCardList({
   isDelete,
   moreMarginBottom,
-  movies,  
+  movies,
   handleAddMovie,
-  visibleMovies,  
+  visibleMovies,
   handleMovieDelete,
   isError,
   errorText,
-}) { 
-
-  const [isNotFound, setIsNotFound] = useState(false);
+  arrIdSavedMovies
+}) {  
+  const [isNotFound, setIsNotFound] = useState(false);   
 
   useEffect(() => {
     if (movies?.length === 0) {
       setIsNotFound(true);
     } else {
       setIsNotFound(false);
-    }    
+    }
   }, [movies]);
-  
+
   return (
     <section
       className={`card-list ${
-        moreMarginBottom ? 'card-list_more-margin-bottom' : ''
+        moreMarginBottom ? "card-list_more-margin-bottom" : ""
       }`}
     >
       {isError ? (
@@ -54,6 +54,7 @@ export default function MoviesCardList({
                 handleAddMovie={handleAddMovie}
                 handleMovieDelete={handleMovieDelete}
                 movie={movie}
+                arrIdSavedMovies={arrIdSavedMovies}                               
               />
             );
           }

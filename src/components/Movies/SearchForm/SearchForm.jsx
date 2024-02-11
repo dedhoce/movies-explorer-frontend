@@ -17,10 +17,6 @@ export default function SearchForm({setIsShortMovies, isShortMovies, setResultSe
   function handleSearch(e) {
     setValue(e.target.value)
   }
-  useEffect(() => {
-    console.log(isShortMovies)
-  },[isShortMovies])
-
 
   return (
     <form className="search-form">

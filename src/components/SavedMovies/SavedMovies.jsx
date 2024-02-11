@@ -35,7 +35,7 @@ export default function SavedMovies({
         setResultSearch={setResultSearch}
         resultSearch={resultSearch}
       />
-      {isPreloader ? (
+      {isPreloader && savedMovies.length === 0 ? (
         <Preloader />
       ) : (
         <MoviesCardList
