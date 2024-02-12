@@ -88,6 +88,7 @@ export default function App() {
           if (res) {
             setCurrentUser(res);
             handleLogin();
+            setErrorByBack('')
           }
         },
       });
@@ -118,6 +119,7 @@ export default function App() {
         apiMetod: mainApi.getUserInfo(localStorage.getItem('jwt')),
         thenCallback: (userInformation) => {
           setCurrentUser(userInformation);
+          setErrorByBack('')
         },
       });
   }, [loggedIn]);
@@ -131,6 +133,7 @@ export default function App() {
         localStorage.setItem('movies', JSON.stringify(initialMovies));
         setMovies(initialMovies);
         setIsNotLoadMovies(false);
+        setErrorByBack('')
       },
     });
   }
@@ -146,6 +149,7 @@ export default function App() {
         }
         setIsNotFoundSavedMovies(false);
         setSavedMovies(initialSavedMovies);
+        setErrorByBack('')
         initialSavedMovies &&
           localStorage.setItem(
             'savedMovies',
@@ -177,6 +181,7 @@ export default function App() {
       ),
       thenCallback: (userInformation) => {
         setCurrentUser(userInformation);
+        setErrorByBack('')
       },
     });
   }
@@ -195,6 +200,7 @@ export default function App() {
           return Promise.reject(`Ошибка: ${res.status}`);
         }
         handleEnterUser({ email, password });
+        setErrorByBack('')
       },
     });
   }
@@ -210,6 +216,7 @@ export default function App() {
           localStorage.setItem('jwt', res.token);
           handleLogin();
           navigate('/movies', { replace: true });
+          setErrorByBack('')
         }
       },
     });
@@ -233,6 +240,7 @@ export default function App() {
       ),
       thenCallback: (newMovies) => {
         setSavedMovies([newMovies, ...savedMovies]);
+        setErrorByBack('')
       },
     });
   }
@@ -249,6 +257,7 @@ export default function App() {
             return item._id !== movieId;
           })
         );
+        setErrorByBack('')
       },
     });
   }

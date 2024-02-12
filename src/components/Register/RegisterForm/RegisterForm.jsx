@@ -3,7 +3,7 @@ import LabelInput from '../LabelInput/LabelInput';
 import ButtonSubmit from '../ButtonSubmit/ButtonSubmit';
 import { useFormAndValidation } from '../../../utils/hoocks/useFormAndValidation';
 
-export default function RegisterForm({handleRegisterUser}) {
+export default function RegisterForm({handleRegisterUser, error}) {
   const { values, handleChange, errors, isValid } = useFormAndValidation();
 
   const { name, email, password } = values
@@ -49,6 +49,7 @@ export default function RegisterForm({handleRegisterUser}) {
         buttonText="Зарегестрироваться"
         marginRegist={true}
         handleButtonSubmit={handleButtonSubmitRegist}
+        error={error}
       />
     </form>
   );
