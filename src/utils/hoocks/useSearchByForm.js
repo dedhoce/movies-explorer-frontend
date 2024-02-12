@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import DURATION_SHORT_MOVIE from '../../constants/durationShortMovie'
+import { useEffect, useState } from "react";
+import { DURATION_SHORT_MOVIE } from "../../constants/durationShortMovie";
 
-function useSearchByForm(movies, page) {  
+function useSearchByForm(movies, page) {
   // содержимое поисковой строки при сабмите элемента поиска
   const [resultSearch, setResultSearch] = useState(
-    JSON.parse(localStorage.getItem(`${page}-resultSearch`)) || ''
+    JSON.parse(localStorage.getItem(`${page}-resultSearch`)) || ""
   );
   const [isActiveFilter, setIsActiveFilter] = useState(
     JSON.parse(localStorage.getItem(`${page}-isShortMovies`)) || false
@@ -19,8 +19,8 @@ function useSearchByForm(movies, page) {
   }
 
   /**возвращает фильмы отсортированные по названию */
-  function searchMoviesByWord(movies) {    
-    return movies.filter((movie) => {      
+  function searchMoviesByWord(movies) {
+    return movies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(resultSearch.toLowerCase());
     });
   }
@@ -28,19 +28,19 @@ function useSearchByForm(movies, page) {
   /**регулярная проверка и запись результата поиска в стэйт resultSearchedMovies*/
   useEffect(() => {
     //включение фильтра при найденных фильмах по слову
-    if (isActiveFilter === true && resultSearch.length > 0) {      
+    if (isActiveFilter === true && resultSearch.length > 0) {
       setResultSearchedMovies(searchMoviesByWord(handleShortMovies(movies)));
     }
     //поиск по фильтру
-    if (isActiveFilter === true && resultSearch.length === 0) {      
+    if (isActiveFilter === true && resultSearch.length === 0) {
       setResultSearchedMovies(handleShortMovies(movies));
     }
     //поиск по слову
-    if (isActiveFilter === false && resultSearch.length > 0) {      
+    if (isActiveFilter === false && resultSearch.length > 0) {
       setResultSearchedMovies(searchMoviesByWord(movies));
     }
     //очистка итога поиска если нет ни слова, ни фильтра
-    if (resultSearch.length === 0 && isActiveFilter === false) {           
+    if (resultSearch.length === 0 && isActiveFilter === false) {
       setResultSearchedMovies(movies);
     }
   }, [resultSearch, isActiveFilter, movies]);
