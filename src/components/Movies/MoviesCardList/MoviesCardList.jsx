@@ -13,7 +13,8 @@ export default function MoviesCardList({
   isError,
   errorText,
   arrIdSavedMovies
-}) {  
+}) {    
+
   const [isNotFound, setIsNotFound] = useState(false);   
 
   useEffect(() => {

@@ -1,5 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+  Navigate,
+} from 'react-router-dom';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import './App.css';
@@ -16,17 +22,20 @@ import ProtectedRouteElement from '../ProtectedRoute';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { LoggedInContext } from '../../contexts/LoggedInContext';
 import { IsPreloaderContext } from '../../contexts/IsPreloaderContext';
-import Preloader from '../../vendor/Preloader/Preloader';
 
 export default function App() {
   /* Глобальный стэйт с данными профиля пользователя. */
   const [currentUser, setCurrentUser] = useState({});
   /** Глобальный стэйт с объектом видео. */
-  const [savedMovies, setSavedMovies] = useState(JSON.parse(localStorage.getItem('savedMovies')) || []);
+  const [savedMovies, setSavedMovies] = useState(
+    JSON.parse(localStorage.getItem('savedMovies')) || []
+  );
   /** Глобальный стэйт с объектом сохраненых видео. */
-  const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')) || []);
+  const [movies, setMovies] = useState(
+    JSON.parse(localStorage.getItem('movies')) || []
+  );
   /** Стэйт авторизации пользователя. */
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('jwt') !== null || false);
 
   /** стейт для элемента Сохраненые видео не найдены */
   const [isNotFoundSavedMovies, setIsNotFoundSavedMovies] = useState(false);
@@ -43,7 +52,7 @@ export default function App() {
    * принимает апи метод и колбэк then так как обрабтка промиса индивидуальная. */
   const [errorByBack, setErrorByBack] = useState('');
 
-  const [arrIdSavedMovies, setArrIdSavedMovies] = useState([]); 
+  const [arrIdSavedMovies, setArrIdSavedMovies] = useState([]);
 
   function callingBaseToServer({ apiMetod, thenCallback }) {
     setIsPreloader(true);
@@ -63,14 +72,14 @@ export default function App() {
   const handleLogin = () => {
     setLoggedIn(true);
     console.log('handleLogin');
-  };  
+  };
 
   /** использую регулярную проверку на наличии токена в хранилище, как толлько он устаревает или пропадает, то блочим аккаунт */
   useEffect(() => {
     handleTokenCheck();
   }, []);
 
-  const handleTokenCheck = () => {    
+  const handleTokenCheck = () => {
     if (localStorage.getItem('jwt')) {
       const localJWT = localStorage.getItem('jwt');
       callingBaseToServer({
@@ -80,9 +89,9 @@ export default function App() {
             setCurrentUser(res);
             handleLogin();
           }
-        }
+        },
       });
-    } 
+    }
   };
 
   /** при наличии в хранилище обновляем стэйты, при отсутсвии обновляем через запрос */
@@ -120,7 +129,7 @@ export default function App() {
       apiMetod: moviesApi.getInitialMovies(),
       thenCallback: (initialMovies) => {
         localStorage.setItem('movies', JSON.stringify(initialMovies));
-        setMovies(initialMovies)
+        setMovies(initialMovies);
         setIsNotLoadMovies(false);
       },
     });
@@ -136,25 +145,25 @@ export default function App() {
           return;
         }
         setIsNotFoundSavedMovies(false);
-        setSavedMovies(initialSavedMovies)
+        setSavedMovies(initialSavedMovies);
         initialSavedMovies &&
           localStorage.setItem(
             'savedMovies',
             JSON.stringify(initialSavedMovies)
-          )
+          );
       },
     });
   }
 
   /**Первая загрузка видео на странице видео */
-  useEffect(() => {      
+  useEffect(() => {
     if (loggedIn && location.pathname === '/movies') {
-      if(localStorage.getItem('movies') === null) {        
-        getInitialMovies()
-      } 
-      if(localStorage.getItem('savedMovies') === null) {        
-        getInitialSavedMovies()
-      }     
+      if (localStorage.getItem('movies') === null) {
+        getInitialMovies();
+      }
+      if (localStorage.getItem('savedMovies') === null) {
+        getInitialSavedMovies();
+      }
     }
   }, [loggedIn, location.pathname]);
 
@@ -185,7 +194,7 @@ export default function App() {
         if (!res._id) {
           return Promise.reject(`Ошибка: ${res.status}`);
         }
-        handleEnterUser({ email, password })
+        handleEnterUser({ email, password });
       },
     });
   }
@@ -212,7 +221,7 @@ export default function App() {
     localStorage.clear();
     setCurrentUser({});
     navigate('/', { replace: true });
-  };  
+  };
 
   /** Отправялеем данные видео на сервер, меняем подпись кнопки сабмита при загрузке,
    * полученную карточку подгружаем в глобальный стэйт. */
@@ -223,7 +232,7 @@ export default function App() {
         localStorage.getItem('jwt')
       ),
       thenCallback: (newMovies) => {
-        setSavedMovies([newMovies, ...savedMovies]);                       
+        setSavedMovies([newMovies, ...savedMovies]);
       },
     });
   }
@@ -231,30 +240,28 @@ export default function App() {
   /** По id карточки отправляем запрос на удаление, после ответа фильтруем карточки
    * в глобальном стэйте по id и возврящаем все кроме той что удалили. */
   function handleMovieDelete(movieId) {
-    console.log(movieId)
+    console.log(movieId);
     callingBaseToServer({
       apiMetod: mainApi.deleteMovie(movieId, localStorage.getItem('jwt')),
       thenCallback: () => {
         setSavedMovies(
           savedMovies.filter((item) => {
             return item._id !== movieId;
-          })          
-        );                                       
+          })
+        );
       },
     });
-  }  
-  
-  useEffect(() => {
-    loggedIn && localStorage.setItem('savedMovies', JSON.stringify(savedMovies) )
-  }, [savedMovies, loggedIn])
+  }
 
   useEffect(() => {
-    loggedIn && setArrIdSavedMovies(savedMovies?.map(
-      (item) => item.movieId
-    ))
-  }, [savedMovies, loggedIn])
+    loggedIn &&
+      localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+  }, [savedMovies, loggedIn]);
 
-  console.log(arrIdSavedMovies)
+  useEffect(() => {
+    loggedIn && setArrIdSavedMovies(savedMovies?.map((item) => item.movieId));
+  }, [savedMovies, loggedIn]);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <LoggedInContext.Provider value={loggedIn}>
@@ -262,19 +269,18 @@ export default function App() {
           <div className="content">
             <Routes>
               <Route path="/" element={<Layout />}>
-                <Route path="" element={<Main />} />                 
+                <Route path="" element={<Main />} />
                 <Route
                   path="movies"
-                  element={movies.length > 0 ?
+                  element={
                     <ProtectedRouteElement
                       component={Movies}
                       movies={movies}
                       handleAddMovie={handleAddMovie}
-                      handleMovieDelete={handleMovieDelete}                      
+                      handleMovieDelete={handleMovieDelete}
                       isNotLoadMovies={isNotLoadMovies}
                       arrIdSavedMovies={arrIdSavedMovies}
-                    /> :
-                    <Preloader />
+                    />
                   }
                 />
                 <Route
@@ -284,7 +290,7 @@ export default function App() {
                       component={SavedMovies}
                       savedMovies={savedMovies}
                       handleMovieDelete={handleMovieDelete}
-                      isNotFoundSavedMovies={isNotFoundSavedMovies}                      
+                      isNotFoundSavedMovies={isNotFoundSavedMovies}
                     />
                   }
                 />
@@ -302,19 +308,27 @@ export default function App() {
                 <Route
                   path="signin"
                   element={
-                    <Login
-                      handleEnterUser={handleEnterUser}
-                      error={errorByBack}
-                    />
+                    loggedIn ? (
+                      <Navigate to="/" replace />
+                    ) : (
+                      <Login
+                        handleEnterUser={handleEnterUser}
+                        error={errorByBack}
+                      />
+                    )
                   }
                 />
                 <Route
                   path="signup"
                   element={
-                    <Register
-                      handleRegisterUser={handleRegisterUser}
-                      error={errorByBack}
-                    />
+                    loggedIn ? (
+                      <Navigate to="/" replace />
+                    ) : (
+                      <Register
+                        handleRegisterUser={handleRegisterUser}
+                        error={errorByBack}
+                      />
+                    )
                   }
                 />
                 <Route path="*" element={<PageNotFound />} />

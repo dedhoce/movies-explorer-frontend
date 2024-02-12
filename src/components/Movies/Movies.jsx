@@ -39,7 +39,7 @@ export default function Movies({
         setResultSearch={setResultSearch}
         resultSearch={resultSearch}
       />
-      {isPreloader && movies.length === 0 ? (
+      {isPreloader || movies.length === 0 ? (
         <Preloader />
       ) : ( 
         <MoviesCardList
@@ -53,7 +53,6 @@ export default function Movies({
           arrIdSavedMovies={arrIdSavedMovies}
         />
       )}
-
       <ButtonStill
         onClick={handleVisibleMoviesStill}
         isActiveButtonStill={isActiveButtonStill}
