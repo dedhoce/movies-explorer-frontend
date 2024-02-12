@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import DURATION_SHORT_MOVIE from '../../constants/durationShortMovie'
 
 function useSearchByForm(movies, page) {  
   // содержимое поисковой строки при сабмите элемента поиска
@@ -14,7 +15,7 @@ function useSearchByForm(movies, page) {
 
   /**функция возвращает фильмы отсортированные по времени */
   function handleShortMovies(movies) {
-    return movies?.filter((movie) => movie.duration <= 40);
+    return movies?.filter((movie) => movie.duration <= DURATION_SHORT_MOVIE);
   }
 
   /**возвращает фильмы отсортированные по названию */

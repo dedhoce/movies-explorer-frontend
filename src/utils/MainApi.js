@@ -51,8 +51,7 @@ class Api extends BaseApi {
 }
 
 const mainApi = new Api({
-  baseUrl: 'https://api.movies-exp.amelitskov.nomoredomainswork.ru',
-  //baseUrl: 'http://localhost:3000',
+  baseUrl: 'https://api.movies-exp.amelitskov.nomoredomainswork.ru'  
 });
 
 export default mainApi;

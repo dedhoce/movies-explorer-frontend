@@ -1,5 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useWindowDimensions } from './useWindowDimensions';
+import {
+  VISIBLE_MOVIES_320_500,
+  VISIBLE_MOVIES_STILL_320_500,
+  VISIBLE_MOVIES_500_768,
+  VISIBLE_MOVIES_STILL_500_768,
+  VISIBLE_MOVIES_768_1280,
+  VISIBLE_MOVIES_STILL_768_1280,
+} from '../../constants/visibleMovies'
 
 function useButtonStill(resultSearchedMovies) {
   const { width } = useWindowDimensions();
@@ -24,14 +32,14 @@ function useButtonStill(resultSearchedMovies) {
 
   useEffect(() => {
     if (width < 500 && width >= 320) {
-      setVisibleMovies(5);
-      setVisibleMoviesStill(2);
+      setVisibleMovies(VISIBLE_MOVIES_320_500);
+      setVisibleMoviesStill(VISIBLE_MOVIES_STILL_320_500);
     } else if (width <= 768 && width >= 500) {
-      setVisibleMovies(8);
-      setVisibleMoviesStill(3);
+      setVisibleMovies(VISIBLE_MOVIES_500_768);
+      setVisibleMoviesStill(VISIBLE_MOVIES_STILL_500_768);
     } else {
-      setVisibleMovies(12);
-      setVisibleMoviesStill(4);
+      setVisibleMovies(VISIBLE_MOVIES_768_1280);
+      setVisibleMoviesStill(VISIBLE_MOVIES_STILL_768_1280);
     }
   }, [width]);
 

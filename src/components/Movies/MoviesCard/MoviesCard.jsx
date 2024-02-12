@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import "./MoviesCard.css";
+import { useEffect, useState } from 'react';
+import './MoviesCard.css';
 
 export default function MoviesCard({
   id,
@@ -8,9 +8,9 @@ export default function MoviesCard({
   times,
   isDelete,
   movie,
-  handleAddMovie,  
-  handleMovieDelete,   
-  arrIdSavedMovies,  
+  handleAddMovie,
+  handleMovieDelete,
+  arrIdSavedMovies,
 }) {
   const {
     country,
@@ -37,28 +37,24 @@ export default function MoviesCard({
     nameEN,
   };
 
-  const [isLike, setIsLike] = useState(false)
+  const [isLike, setIsLike] = useState(false);
 
   useEffect(() => {
-    if(arrIdSavedMovies?.includes(id)) {
-      console.log(1)
-      setIsLike(true)
+    if (arrIdSavedMovies?.includes(id)) {
+      setIsLike(true);
     } else {
-      console.log(2)
-      setIsLike(false)
-    }      
-    console.log(arrIdSavedMovies)  
-  },[arrIdSavedMovies])
-  
+      setIsLike(false);
+    }
+  }, [arrIdSavedMovies]);
 
   function handleDeleteByIdSavedMovie() {
-    JSON.parse(localStorage.getItem("savedMovies")).forEach((movie) => {
+    JSON.parse(localStorage.getItem('savedMovies')).forEach((movie) => {
       if (movie.movieId === id) {
-        handleMovieDelete(movie._id);                
+        handleMovieDelete(movie._id);
       }
     });
   }
-  
+
   return (
     <div className="card">
       <a href={trailerLink}>
@@ -78,10 +74,7 @@ export default function MoviesCard({
                 ? () => handleAddMovie(dataMovie)
                 : handleDeleteByIdSavedMovie
             }
-            className={
-              "card__like" +
-              (isLike ? " card__like_active" : "")
-            }
+            className={'card__like' + (isLike ? ' card__like_active' : '')}
           ></button>
         ) : (
           <button
