@@ -4,13 +4,13 @@ import { DURATION_SHORT_MOVIE } from "../../constants/durationShortMovie";
 function useSearchByForm(movies, page) {
   // содержимое поисковой строки при сабмите элемента поиска
   const [resultSearch, setResultSearch] = useState(
-    JSON.parse(localStorage.getItem(`${page}-resultSearch`)) || ""
+    JSON.parse(page && localStorage.getItem(`${page}-resultSearch`)) || ""
   );
   const [isActiveFilter, setIsActiveFilter] = useState(
-    JSON.parse(localStorage.getItem(`${page}-isShortMovies`)) || false
+    JSON.parse(page && localStorage.getItem(`${page}-isShortMovies`)) || false
   );
   const [resultSearchedMovies, setResultSearchedMovies] = useState(
-    JSON.parse(localStorage.getItem(`${page}-resultSearchedMovies`)) || []
+    JSON.parse(page && localStorage.getItem(`${page}-resultSearchedMovies`)) || []
   );
 
   /**функция возвращает фильмы отсортированные по времени */
@@ -47,15 +47,17 @@ function useSearchByForm(movies, page) {
 
   /**Запись стейтов в LocalStorage */
   useEffect(() => {
-    localStorage.setItem(`${page}-resultSearch`, JSON.stringify(resultSearch));
-    localStorage.setItem(
-      `${page}-isShortMovies`,
-      JSON.stringify(isActiveFilter)
-    );
-    localStorage.setItem(
-      `${page}-resultSearchedMovies`,
-      JSON.stringify(resultSearchedMovies)
-    );
+    if(page) {
+      localStorage.setItem(`${page}-resultSearch`, JSON.stringify(resultSearch));
+      localStorage.setItem(
+        `${page}-isShortMovies`,
+        JSON.stringify(isActiveFilter)
+      );
+      localStorage.setItem(
+        `${page}-resultSearchedMovies`,
+        JSON.stringify(resultSearchedMovies)
+      );
+    }    
   }, [resultSearch, isActiveFilter, resultSearchedMovies]);
 
   return {

@@ -19,7 +19,7 @@ export default function SavedMovies({
     resultSearchedMovies,
     resultSearch,
     isActiveFilter,
-  } = useSearchByForm(savedMovies, 'saved-movies');
+  } = useSearchByForm(savedMovies, false);
 
   const {
     handleVisibleMoviesStill,
