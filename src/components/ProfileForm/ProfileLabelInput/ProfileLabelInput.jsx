@@ -8,6 +8,7 @@ export default function ProfileLabelInput({
   value,
   onChange,  
   error,
+  isValid,
   minLength,
   maxLength,
 }) {
@@ -29,10 +30,10 @@ export default function ProfileLabelInput({
       </span>
       <span
         className={`profile-form__error ${
-          error ? 'profile-form__error_active' : ''
+          !isValid ? 'profile-form__error_active' : ''
         }`}
       >
-        {error ? error : ''}
+        {error}
       </span>
     </label>
   );

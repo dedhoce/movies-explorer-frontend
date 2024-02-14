@@ -18,7 +18,7 @@ export default function ProfileForm({
 
   const [isChangeUserData, setIsChangeUserData] = useState(false)  
 
-  const { values, handleChange, errors, setValues, isValid } =
+  const { values, handleChange, errors, setValues, setIsValid, isValidForm, isInputValid } =
     useFormAndValidation();
 
   const { name, email } = values;
@@ -29,7 +29,7 @@ export default function ProfileForm({
     if (location.pathname === '/profile') {
       setValues({ name: currentUser.name, email: currentUser.email });
     }
-  }, []);
+  }, [location.pathname, currentUser.name, currentUser.email]);
 
   useEffect(() => {
     if(name === currentUser.name && email === currentUser.email) {
@@ -37,11 +37,12 @@ export default function ProfileForm({
     } else { 
       setIsChangeUserData(true)
     }
-  },[name, email])
+  },[name, email, currentUser.name, currentUser.email])
 
   function handleEdit(e) {
     e.preventDefault();        
-    handleUpdateUser({ name, email });    
+    handleUpdateUser({ name, email });
+    setIsValid(false)    
   }
 
   return (
@@ -54,6 +55,7 @@ export default function ProfileForm({
         placeholder="Введите имя"
         value={name}
         error={errors.name}
+        isValid={isInputValid.name}
         onChange={handleChange}
         minLength="2"
         maxLength="30"
@@ -65,6 +67,7 @@ export default function ProfileForm({
         placeholder="Введите e-mail"
         value={email}
         error={errors.email}
+        isValid={isInputValid.email}
         onChange={handleChange}
       />
       <span
@@ -80,9 +83,9 @@ export default function ProfileForm({
         <button
           onClick={handleEdit}
           className={`profile-form__button ${
-            !isValid || !isChangeUserData ? 'profile-form__button_disable' : ''
+            !isChangeUserData || !isValidForm ? 'profile-form__button_disable' : ''
           }`}
-          disabled={!isValid || !isChangeUserData ? true : false}
+          disabled={!isChangeUserData || !isValidForm ? true : false}
         >
           {!isChangeUserData ? 'Редактировать нечего' : 'Редактировать'}
         </button>

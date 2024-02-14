@@ -5,7 +5,7 @@ import ButtonSubmit from '../../Register/ButtonSubmit/ButtonSubmit';
 import { useFormAndValidation } from '../../../utils/hoocks/useFormAndValidation';
 
 export default function LoginForm({handleEnterUser, error}) {
-  const { values, handleChange, errors, isValid } =
+  const { values, handleChange, errors, isValidForm, isInputValid } =
     useFormAndValidation();
 
     const { email, password } = values
@@ -23,7 +23,7 @@ export default function LoginForm({handleEnterUser, error}) {
         value={email ? email : ''}
         error={errors.email}        
         inputType="email"
-        isValid={isValid}
+        isValid={isInputValid.email}
         onChange={handleChange}        
       />
       <LabelInput
@@ -32,13 +32,13 @@ export default function LoginForm({handleEnterUser, error}) {
         value={password ? password : ''}
         error={errors.password}        
         inputType="password"
-        isValid={isValid}
+        isValid={isInputValid.password}
         onChange={handleChange}        
       />
       <ButtonSubmit
         buttonText="Войти"
         marginLogin={true}
-        isValid={isValid}
+        isValid={isValidForm}
         handleButtonSubmit={handleButtonSubmitLogin}
         error={error}
       />

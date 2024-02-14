@@ -4,7 +4,7 @@ import ButtonSubmit from '../ButtonSubmit/ButtonSubmit';
 import { useFormAndValidation } from '../../../utils/hoocks/useFormAndValidation';
 
 export default function RegisterForm({handleRegisterUser, error}) {
-  const { values, handleChange, errors, isValid } = useFormAndValidation();
+  const { values, handleChange, errors, isValidForm, isInputValid } = useFormAndValidation();
 
   const { name, email, password } = values
 
@@ -21,7 +21,7 @@ export default function RegisterForm({handleRegisterUser, error}) {
         value={name ? name : ''}
         error={errors.name}
         inputType="text"
-        isValid={isValid}
+        isValid={isInputValid.name}
         onChange={handleChange}
         minLength="2"
         maxLength="30"
@@ -32,7 +32,7 @@ export default function RegisterForm({handleRegisterUser, error}) {
         value={email ? email : ''}
         error={errors.email}
         inputType="email"
-        isValid={isValid}
+        isValid={isInputValid.email}
         onChange={handleChange}
       />
       <LabelInput
@@ -41,11 +41,11 @@ export default function RegisterForm({handleRegisterUser, error}) {
         value={password ? password : ''}
         error={errors.password}
         inputType="password"
-        isValid={isValid}
+        isValid={isInputValid.password}
         onChange={handleChange}
       />
       <ButtonSubmit
-        isValid={isValid}
+        isValid={isValidForm}
         buttonText="Зарегестрироваться"
         marginRegist={true}
         handleButtonSubmit={handleButtonSubmitRegist}
