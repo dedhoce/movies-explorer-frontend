@@ -39,7 +39,7 @@ export default function Movies({
         setResultSearch={setResultSearch}
         resultSearch={resultSearch}
       />
-      {isPreloader || movies.length === 0 ? (
+      {(isPreloader && movies.length === 0) || movies.length === 0 ? (
         <Preloader />
       ) : ( 
         <MoviesCardList

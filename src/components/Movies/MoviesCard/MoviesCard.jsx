@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './MoviesCard.css';
+import { IsPreloaderContext } from '../../../contexts/IsPreloaderContext';
 
 export default function MoviesCard({
   id,
@@ -37,6 +38,8 @@ export default function MoviesCard({
     nameEN,
   };
 
+  const isPreloader = useContext(IsPreloaderContext);
+
   const [isLike, setIsLike] = useState(false);
 
   useEffect(() => {
@@ -57,7 +60,7 @@ export default function MoviesCard({
 
   return (
     <div className="card">
-      <a href={trailerLink} target="_blank" rel='noreferrer'>
+      <a href={trailerLink} target="_blank" rel="noreferrer">
         <img
           className="card__image"
           src={image}
@@ -75,12 +78,14 @@ export default function MoviesCard({
                 : handleDeleteByIdSavedMovie
             }
             className={'card__like' + (isLike ? ' card__like_active' : '')}
+            disabled={isPreloader}
           ></button>
         ) : (
           <button
             type="button"
             onClick={() => handleMovieDelete(id)}
             className="card__like card__like_delete"
+            disabled={isPreloader}
           ></button>
         )}
       </div>
