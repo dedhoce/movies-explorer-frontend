@@ -3,16 +3,17 @@ import './SearchForm.css';
 
 export default function SearchForm({setIsShortMovies, isShortMovies, setResultSearch, resultSearch }) {
   
-  function handleFilterToogle(e) {
-    e.preventDefault()
-    isShortMovies ? setIsShortMovies(false) : setIsShortMovies(true);
-  }
-
   const [value, setValue] = useState()
 
   useEffect(() => {
     resultSearch && setValue(resultSearch)
   },[resultSearch])
+
+  function handleFilterToogle(e) {
+    e.preventDefault()
+    isShortMovies ? setIsShortMovies(false) : setIsShortMovies(true);
+    setResultSearch(value ? value : '')
+  } 
 
   function handleSearch(e) {
     setValue(e.target.value)
