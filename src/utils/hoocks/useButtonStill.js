@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useWindowDimensions } from './useWindowDimensions';
 import {
-  VISIBLE_MOVIES_320_500,
-  VISIBLE_MOVIES_STILL_320_500,
-  VISIBLE_MOVIES_500_768,
-  VISIBLE_MOVIES_STILL_500_768,
-  VISIBLE_MOVIES_768_1280,
-  VISIBLE_MOVIES_STILL_768_1280,
-} from '../../constants/visibleMovies'
+  VISIBLE_MOVIES_IN_ROW_320_500,
+  VISIBLE_ROW_MOVIES_320_500,
+  VISIBLE_ADD_ROW_MOVIES_320_500,
+  VISIBLE_MOVIES_IN_ROW_501_768,
+  VISIBLE_ROW_MOVIES_501_768,
+  VISIBLE_ADD_ROW_MOVIES_501_768,
+  VISIBLE_MOVIES_IN_ROW_769_1280,
+  VISIBLE_ROW_MOVIES_769_1280,
+  VISIBLE_ADD_ROW_MOVIES_769_1280,
+} from '../../constants/visibleMovies';
 
 function useButtonStill(resultSearchedMovies) {
   const { width } = useWindowDimensions();
@@ -20,7 +23,7 @@ function useButtonStill(resultSearchedMovies) {
 
   function handleVisibleMoviesStill() {
     setVisibleMovies(visibleMovies + visibleMoviesStill);
-  }
+  } 
 
   useEffect(() => {
     if (visibleMovies >= resultSearchedMovies.length) {
@@ -32,14 +35,17 @@ function useButtonStill(resultSearchedMovies) {
 
   useEffect(() => {
     if (width < 500 && width >= 320) {
-      setVisibleMovies(VISIBLE_MOVIES_320_500);
-      setVisibleMoviesStill(VISIBLE_MOVIES_STILL_320_500);
+      setVisibleMovies(VISIBLE_MOVIES_IN_ROW_320_500*VISIBLE_ROW_MOVIES_320_500);
+      setVisibleMoviesStill(
+        VISIBLE_MOVIES_IN_ROW_320_500*VISIBLE_ADD_ROW_MOVIES_320_500);
     } else if (width <= 768 && width >= 500) {
-      setVisibleMovies(VISIBLE_MOVIES_500_768);
-      setVisibleMoviesStill(VISIBLE_MOVIES_STILL_500_768);
+      setVisibleMovies(VISIBLE_MOVIES_IN_ROW_501_768*VISIBLE_ROW_MOVIES_501_768);
+      setVisibleMoviesStill(
+        VISIBLE_MOVIES_IN_ROW_501_768*VISIBLE_ADD_ROW_MOVIES_501_768);
     } else {
-      setVisibleMovies(VISIBLE_MOVIES_768_1280);
-      setVisibleMoviesStill(VISIBLE_MOVIES_STILL_768_1280);
+      setVisibleMovies(VISIBLE_MOVIES_IN_ROW_769_1280*VISIBLE_ROW_MOVIES_769_1280);
+      setVisibleMoviesStill(
+        VISIBLE_MOVIES_IN_ROW_769_1280*VISIBLE_ADD_ROW_MOVIES_769_1280);
     }
   }, [width]);
 
