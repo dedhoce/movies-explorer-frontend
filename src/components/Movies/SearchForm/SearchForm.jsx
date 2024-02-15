@@ -22,7 +22,7 @@ export default function SearchForm({setIsShortMovies, isShortMovies, setResultSe
   return (
     <form className="search-form">
       <input type="text" className="search-form__input" placeholder="Фильм" value={value ? value : ''} onChange={handleSearch}/>
-      <button onClick={(e) => {e.preventDefault(); setResultSearch(value)}} className="search-form__submit"></button>
+      <button onClick={(e) => {e.preventDefault(); setResultSearch(value ? value : '')}} className="search-form__submit"></button>
       <div className="search-form__filter">
         <button
           onClick={handleFilterToogle}
