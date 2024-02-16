@@ -28,6 +28,14 @@
   /* margin: 5px 0; Использовать потом если понадобиться наладить эстетику*/ 
 }
 
+.profile-form__response_active {
+  opacity: 1;
+  visibility: visible;
+  display: block;
+  color: #09ac2f;
+  /* margin: 5px 0; Использовать потом если понадобиться наладить эстетику*/ 
+}
+
 .profile-form__title {
   margin: 74px 0 124px;
   padding: 0;

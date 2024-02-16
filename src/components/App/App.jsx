@@ -46,14 +46,16 @@ export default function App() {
   /**Стэйт ошибки при загрузке видео */
   const [isNotLoadMovies, setIsNotLoadMovies] = useState(false);
 
-  const location = useLocation();
-
-  /** Базовая функция для обращения к серверу и обработки ответа,
-   * принимает апи метод и колбэк then так как обрабтка промиса индивидуальная. */
   const [errorByBack, setErrorByBack] = useState('');
 
   const [arrIdSavedMovies, setArrIdSavedMovies] = useState([]);
 
+  const [isSuccessfulResponse, setIsSuccessfulResponse] = useState(false)
+
+  const location = useLocation();
+
+  /** Базовая функция для обращения к серверу и обработки ответа,
+   * принимает апи метод и колбэк then так как обрабтка промиса индивидуальная. */
   function callingBaseToServer({ apiMetod, thenCallback }) {
     setIsPreloader(true);
     apiMetod
@@ -174,6 +176,7 @@ export default function App() {
   /** Отправляем данные о пользователе на сервер, меняем подпись кнопки сабмита при загрузке,
    *  ответ с новыми данными записываем в глобальный стэйт. */
   function handleUpdateUser({ name, email }) {
+    setIsSuccessfulResponse(false)
     callingBaseToServer({
       apiMetod: mainApi.pushUserInfo(
         { name, email },
@@ -181,6 +184,7 @@ export default function App() {
       ),
       thenCallback: (userInformation) => {
         setCurrentUser(userInformation);
+        setIsSuccessfulResponse(true)
         setErrorByBack('')
       },
     });
@@ -271,6 +275,12 @@ export default function App() {
     loggedIn && setArrIdSavedMovies(savedMovies?.map((item) => item.movieId));
   }, [savedMovies, loggedIn]);
 
+  useEffect(() => {
+    if (location.pathname !== '/profile') {
+      setIsSuccessfulResponse(false);      
+    }    
+  }, [location.pathname]);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <LoggedInContext.Provider value={loggedIn}>
@@ -311,6 +321,7 @@ export default function App() {
                       handleSignOut={handleSignOut}
                       error={errorByBack}
                       handleUpdateUser={handleUpdateUser}
+                      isSuccessfulResponse={isSuccessfulResponse}                      
                     />
                   }
                 />

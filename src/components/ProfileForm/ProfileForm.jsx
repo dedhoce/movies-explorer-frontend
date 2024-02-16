@@ -11,6 +11,7 @@ export default function ProfileForm({
   handleSignOut,  
   handleUpdateUser,
   error,
+  isSuccessfulResponse  
 }) {
   //подписываемся на контекст стэйта с данными пользователя
   const currentUser = useContext(CurrentUserContext)
@@ -27,8 +28,8 @@ export default function ProfileForm({
 
   useEffect(() => {
     if (location.pathname === '/profile') {
-      setValues({ name: currentUser.name, email: currentUser.email });
-    }
+      setValues({ name: currentUser.name, email: currentUser.email });      
+    }    
   }, [location.pathname, currentUser.name, currentUser.email]);
 
   useEffect(() => {
@@ -73,9 +74,11 @@ export default function ProfileForm({
       <span
         className={`profile-form__error ${
           error ? 'profile-form__error_active' : ''
+        }${
+          isSuccessfulResponse ? 'profile-form__response_active' : ''
         }`}
       >
-        {error}
+        {isSuccessfulResponse ? 'Ваши данные успешно обновлены.' : error}
       </span>
       {isPreloader ? 
         <Preloader/> 
