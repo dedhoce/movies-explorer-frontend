@@ -2,15 +2,20 @@ import './RegisterForm.css';
 import LabelInput from '../LabelInput/LabelInput';
 import ButtonSubmit from '../ButtonSubmit/ButtonSubmit';
 import { useFormAndValidation } from '../../../utils/hoocks/useFormAndValidation';
+import Preloader from '../../../vendor/Preloader/Preloader';
+import { IsPreloaderContext } from '../../../contexts/IsPreloaderContext';
+import { useContext } from 'react';
 
-export default function RegisterForm({handleRegisterUser, error}) {
-  const { values, handleChange, errors, isValidForm, isInputValid } = useFormAndValidation();
+export default function RegisterForm({ handleRegisterUser, error }) {
+  const isPreloader = useContext(IsPreloaderContext);
+  const { values, handleChange, errors, isValidForm, isInputValid } =
+    useFormAndValidation();
 
-  const { name, email, password } = values
+  const { name, email, password } = values;
 
   function handleButtonSubmitRegist(e) {
-    e.preventDefault()
-    handleRegisterUser({name, email, password})
+    e.preventDefault();
+    handleRegisterUser({ name, email, password });
   }
 
   return (
@@ -44,13 +49,17 @@ export default function RegisterForm({handleRegisterUser, error}) {
         isValid={isInputValid.password}
         onChange={handleChange}
       />
-      <ButtonSubmit
-        isValid={isValidForm}
-        buttonText="Зарегестрироваться"
-        marginRegist={true}
-        handleButtonSubmit={handleButtonSubmitRegist}
-        error={error}
-      />
+      {isPreloader ? (
+        <Preloader />
+      ) : (
+        <ButtonSubmit
+          isValid={isValidForm}
+          buttonText="Зарегестрироваться"
+          marginRegist={true}
+          handleButtonSubmit={handleButtonSubmitRegist}
+          error={error}
+        />
+      )}
     </form>
   );
 }

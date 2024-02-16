@@ -3,16 +3,21 @@ import '../../Register/Register.css';
 import LabelInput from '../../Register/LabelInput/LabelInput';
 import ButtonSubmit from '../../Register/ButtonSubmit/ButtonSubmit';
 import { useFormAndValidation } from '../../../utils/hoocks/useFormAndValidation';
+import { useContext } from 'react';
+import { IsPreloaderContext } from '../../../contexts/IsPreloaderContext';
+import Preloader from '../../../vendor/Preloader/Preloader';
 
-export default function LoginForm({handleEnterUser, error}) {
+export default function LoginForm({ handleEnterUser, error }) {
+  const isPreloader = useContext(IsPreloaderContext);
+
   const { values, handleChange, errors, isValidForm, isInputValid } =
     useFormAndValidation();
 
-    const { email, password } = values
+  const { email, password } = values;
 
   function handleButtonSubmitLogin(e) {
-    e.preventDefault()
-    handleEnterUser({ email, password })
+    e.preventDefault();
+    handleEnterUser({ email, password });
   }
 
   return (
@@ -21,27 +26,31 @@ export default function LoginForm({handleEnterUser, error}) {
         name="email"
         title="E-mail"
         value={email ? email : ''}
-        error={errors.email}        
+        error={errors.email}
         inputType="email"
         isValid={isInputValid.email}
-        onChange={handleChange}        
+        onChange={handleChange}
       />
       <LabelInput
         name="password"
         title="Пароль"
         value={password ? password : ''}
-        error={errors.password}        
+        error={errors.password}
         inputType="password"
         isValid={isInputValid.password}
-        onChange={handleChange}        
+        onChange={handleChange}
       />
-      <ButtonSubmit
-        buttonText="Войти"
-        marginLogin={true}
-        isValid={isValidForm}
-        handleButtonSubmit={handleButtonSubmitLogin}
-        error={error}
-      />
+      {isPreloader ? (
+        <Preloader />
+      ) : (
+        <ButtonSubmit
+          buttonText="Войти"
+          marginLogin={true}
+          isValid={isValidForm}
+          handleButtonSubmit={handleButtonSubmitLogin}
+          error={error}
+        />
+      )}
     </form>
   );
 }

@@ -1,4 +1,6 @@
 import './LabelInput.css';
+import { IsPreloaderContext } from "../../../contexts/IsPreloaderContext";
+import { useContext } from 'react';
 
 export default function LabelInput({
   name,
@@ -10,7 +12,8 @@ export default function LabelInput({
   isValid,  
   minLength,
   maxLength,
-}) {    
+}) { 
+  const isPreloader = useContext(IsPreloaderContext)   
   return (
     <label className="regist__input-label">
       <span className="regist__input-title">{title}</span>
@@ -26,6 +29,7 @@ export default function LabelInput({
         minLength={minLength}
         maxLength={maxLength}
         required
+        disabled={isPreloader}
       />
       <span
         className={

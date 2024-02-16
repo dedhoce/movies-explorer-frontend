@@ -1,7 +1,10 @@
 import './ButtonSubmit.css';
+import { IsPreloaderContext } from "../../../contexts/IsPreloaderContext";
+import { useContext } from 'react';
+
 
 export default function ButtonSubmit({ buttonText, marginRegist, marginLogin, isValid, handleButtonSubmit, error }) {
-    
+  const isPreloader = useContext(IsPreloaderContext)
   return (
     <div
       className={
@@ -23,7 +26,7 @@ export default function ButtonSubmit({ buttonText, marginRegist, marginLogin, is
           'regist__button-submit ' +
           (!isValid ? 'regist__button-submit_disable' : '')
         }
-        disabled={!isValid ? true : false}
+        disabled={!isValid || isPreloader ? true : false}
       >
         {buttonText}
       </button>

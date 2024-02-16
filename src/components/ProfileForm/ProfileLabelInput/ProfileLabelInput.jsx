@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import './ProfileLabelInput.css';
+import { IsPreloaderContext } from '../../../contexts/IsPreloaderContext';
 
 export default function ProfileLabelInput({
   title,
@@ -12,6 +14,7 @@ export default function ProfileLabelInput({
   minLength,
   maxLength,
 }) {
+  const isPreloader = useContext(IsPreloaderContext)
   return (
     <label className="profile-form__input-label" >
       <span className="profile-form__label-block">
@@ -25,6 +28,7 @@ export default function ProfileLabelInput({
           onChange={onChange}
           minLength={minLength}
           maxLength={maxLength}
+          disabled={isPreloader}
           required
         />
       </span>
