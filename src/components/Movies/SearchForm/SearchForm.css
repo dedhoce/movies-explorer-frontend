@@ -100,7 +100,7 @@
   color: #fff;
 }
 
-@media screen and (min-width: 320px) and (max-width: 768px) {
+@media screen and (min-width: 450px) and (max-width: 768px) {
   .search-form {
     padding: 0 30px;
   }
@@ -116,7 +116,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (min-width: 320px) and (max-width: 449px) {
   .search-form {
     padding: 0 15px;
   }
@@ -126,7 +126,7 @@
     width: 94%;
   }
   .search-form__submit {
-    right: 20px;    
+    right: 36px;    
   }
   .search-form__filter-title{
     font-size: 11px;

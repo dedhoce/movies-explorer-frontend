@@ -34,15 +34,17 @@ function useButtonStill(resultSearchedMovies) {
   }, [visibleMovies, resultSearchedMovies]);
 
   useEffect(() => {
-    if (width < 500 && width >= 320) {
+    if (width < 768 && width >= 320) {      
       setVisibleMovies(VISIBLE_MOVIES_IN_ROW_320_500*VISIBLE_ROW_MOVIES_320_500);
       setVisibleMoviesStill(
         VISIBLE_MOVIES_IN_ROW_320_500*VISIBLE_ADD_ROW_MOVIES_320_500);
-    } else if (width <= 768 && width >= 500) {
+    } 
+    if (width <= 1137 && width >= 768) {      
       setVisibleMovies(VISIBLE_MOVIES_IN_ROW_501_768*VISIBLE_ROW_MOVIES_501_768);
       setVisibleMoviesStill(
         VISIBLE_MOVIES_IN_ROW_501_768*VISIBLE_ADD_ROW_MOVIES_501_768);
-    } else {
+    }
+    if (width >= 1138) {      
       setVisibleMovies(VISIBLE_MOVIES_IN_ROW_769_1280*VISIBLE_ROW_MOVIES_769_1280);
       setVisibleMoviesStill(
         VISIBLE_MOVIES_IN_ROW_769_1280*VISIBLE_ADD_ROW_MOVIES_769_1280);
