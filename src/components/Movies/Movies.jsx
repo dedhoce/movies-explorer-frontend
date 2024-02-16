@@ -25,7 +25,7 @@ export default function Movies({
   } = useSearchByForm(movies, 'movies');
 
   const {
-    handleVisibleMoviesStill,
+    handleVisibleMoviesStill ,
     isActiveButtonStill,
     visibleMovies,
     visibleMoviesStill,
@@ -43,7 +43,7 @@ export default function Movies({
         <Preloader />
       ) : ( 
         <MoviesCardList
-          movies={resultSearchedMovies}
+          movies={resultSearchedMovies }
           visibleMovies={visibleMovies}
           visibleMoviesStill={visibleMoviesStill}
           handleAddMovie={handleAddMovie}

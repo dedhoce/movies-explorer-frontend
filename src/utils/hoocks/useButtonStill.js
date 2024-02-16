@@ -12,10 +12,11 @@ import {
   VISIBLE_ADD_ROW_MOVIES_769_1280,
 } from '../../constants/visibleMovies';
 
-function useButtonStill(resultSearchedMovies) {
+function useButtonStill(resultSearchedMovies ) {
   const { width } = useWindowDimensions();
   // колличество отображаемых видео
   const [visibleMovies, setVisibleMovies] = useState(0);
+  console.log(visibleMovies)
   // колличество видео, добавляемых кнопкой "Еще"
   const [visibleMoviesStill, setVisibleMoviesStill] = useState(0);
   // активность кнопки "Еще", зависит от сравнения отрисованных видео с колличеством видео в объекте
@@ -49,7 +50,7 @@ function useButtonStill(resultSearchedMovies) {
       setVisibleMoviesStill(
         VISIBLE_MOVIES_IN_ROW_769_1280*VISIBLE_ADD_ROW_MOVIES_769_1280);
     }
-  }, [width]);
+  }, [width, resultSearchedMovies]);
 
   return {
     handleVisibleMoviesStill,
