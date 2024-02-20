@@ -9,13 +9,14 @@ const pathname = [
   '/saved-movies'
 ]
 
-const Layout = ({ isLogin }) => {
+const Layout = () => {
+  
   const location = useLocation();
   return (
     <>
       {location.pathname === '/profile' ||
       pathname.includes(location.pathname) ? (
-        <Header isLogin={isLogin} />
+        <Header />
       ) : (
         <></>
       )}

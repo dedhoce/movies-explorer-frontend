@@ -4,9 +4,13 @@ import Account from './Account/Account';
 import Menu from '../Menu/Menu';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useWindowDimensions } from '../../utils/hoocks/useWindowDimensions';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { LoggedInContext } from '../../contexts/LoggedInContext';
 
-export default function Header({ isLogin }) {
+export default function Header() {
+  /** подписываемся на контекст состояния Логина */
+  const loggedIn = useContext(LoggedInContext)
+
   const location = useLocation();
 
   const { width } = useWindowDimensions();
@@ -35,7 +39,7 @@ export default function Header({ isLogin }) {
           ></button>
           <Menu isOpenMenu={isOpenMenu} closeMenu={closeMenu} />
         </>
-      ) : isLogin ? (
+      ) : loggedIn ? (
         <>
           <div className="header__logo-nav">
             <Logo />

@@ -1,27 +1,62 @@
 import './ProfileForm.css';
-import { useState } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { useFormAndValidation } from '../../utils/hoocks/useFormAndValidation';
 import ProfileLabelInput from './ProfileLabelInput/ProfileLabelInput';
+import { useLocation } from 'react-router-dom';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { IsPreloaderContext } from '../../contexts/IsPreloaderContext';
+import Preloader from '../../vendor/Preloader/Preloader';
 
-export default function ProfileForm() {
-  const [isActive, setIsActive] = useState(true);
+export default function ProfileForm({
+  handleSignOut,  
+  handleUpdateUser,
+  error,
+  isSuccessfulResponse  
+}) {
+  //подписываемся на контекст стэйта с данными пользователя
+  const currentUser = useContext(CurrentUserContext)
+  const isPreloader = useContext(IsPreloaderContext)
 
-  const { values, handleChange, errors } = useFormAndValidation(); // isValid использовать потом на кнопке сабмита
+  const [isChangeUserData, setIsChangeUserData] = useState(false)  
+
+  const { values, handleChange, errors, setValues, setIsValid, isValidForm, isInputValid } =
+    useFormAndValidation();
+
+  const { name, email } = values;
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/profile') {
+      setValues({ name: currentUser.name, email: currentUser.email });      
+    }    
+  }, [location.pathname, currentUser.name, currentUser.email]);
+
+  useEffect(() => {
+    if(name === currentUser.name && email === currentUser.email) {
+      setIsChangeUserData(false)
+    } else { 
+      setIsChangeUserData(true)
+    }
+  },[name, email, currentUser.name, currentUser.email])
 
   function handleEdit(e) {
-    e.preventDefault();
-    setIsActive(false);
+    e.preventDefault();        
+    handleUpdateUser({ name, email });
+    setIsValid(false)    
   }
+
   return (
     <form className="profile-form">
-      <h2 className="profile-form__title">Привет, Андрей!</h2>
+      <h2 className="profile-form__title">{`Привет, ${currentUser.name}!`}</h2>
       <ProfileLabelInput
         typeInput="text"
         title="Имя"
         name="name"
         placeholder="Введите имя"
-        value={values.name}
+        value={name}
         error={errors.name}
+        isValid={isInputValid.name}
         onChange={handleChange}
         minLength="2"
         maxLength="30"
@@ -31,27 +66,37 @@ export default function ProfileForm() {
         title="E-mail"
         name="email"
         placeholder="Введите e-mail"
-        value={values.email}
+        value={email}
         error={errors.email}
-        onChange={handleChange}        
+        isValid={isInputValid.email}
+        onChange={handleChange}
       />
       <span
         className={`profile-form__error ${
-          !isActive ? 'profile-form__error_active' : ''
+          error ? 'profile-form__error_active' : ''
+        }${
+          isSuccessfulResponse ? 'profile-form__response_active' : ''
         }`}
       >
-        При обновлении профиля произошла ошибка.
+        {isSuccessfulResponse ? 'Ваши данные успешно обновлены.' : error}
       </span>
+      {isPreloader ? 
+        <Preloader/> 
+      : 
+        <button
+          onClick={handleEdit}
+          className={`profile-form__button ${
+            !isChangeUserData || !isValidForm ? 'profile-form__button_disable' : ''
+          }`}
+          disabled={!isChangeUserData || !isValidForm ? true : false}
+        >
+          {!isChangeUserData ? 'Редактировать нечего' : 'Редактировать'}
+        </button>
+      }
       <button
-        onClick={handleEdit}
-        className={`profile-form__button ${
-          !isActive ? 'profile-form__button_disable' : ''
-        }`}
-        // disabled={!isValid ? true : false}
+        onClick={handleSignOut}
+        className="profile-form__button profile-form__button_red"
       >
-        Редактировать
-      </button>
-      <button className="profile-form__button profile-form__button_red">
         Выйти из аккаунта
       </button>
     </form>

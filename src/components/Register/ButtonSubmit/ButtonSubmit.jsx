@@ -1,14 +1,10 @@
-import { useState } from 'react';
 import './ButtonSubmit.css';
+import { IsPreloaderContext } from "../../../contexts/IsPreloaderContext";
+import { useContext } from 'react';
 
-export default function ButtonSubmit({ buttonText, marginRegist, marginLogin, isValid }) {
-  const [isError, setIsError] = useState(false);
 
-  function handleButtonSubmit(e) {
-    e.preventDefault();
-    setIsError(true);
-  }
-
+export default function ButtonSubmit({ buttonText, marginRegist, marginLogin, isValid, handleButtonSubmit, error }) {
+  const isPreloader = useContext(IsPreloaderContext)
   return (
     <div
       className={
@@ -19,10 +15,10 @@ export default function ButtonSubmit({ buttonText, marginRegist, marginLogin, is
     >
       <span
         className={`regist__error-submit ${
-          isError ? 'regist__error-submit_active' : ''
+          error ? 'regist__error-submit_active' : ''
         }`}
       >
-        Что-то пошло не так...
+        {error}
       </span>
       <button
         onClick={handleButtonSubmit}
@@ -30,7 +26,7 @@ export default function ButtonSubmit({ buttonText, marginRegist, marginLogin, is
           'regist__button-submit ' +
           (!isValid ? 'regist__button-submit_disable' : '')
         }
-        disabled={!isValid ? true : false}
+        disabled={!isValid || isPreloader ? true : false}
       >
         {buttonText}
       </button>

@@ -1,9 +1,10 @@
 import './ButtonStill.css';
 
-export default function ButtonStill() {
+export default function ButtonStill({onClick, isActiveButtonStill}) {
+  
   return (
-    <div className="still">
-      <button className="still__button">Еще</button>
+    <div className={`still ${!isActiveButtonStill ? 'still_unvisible' : ''}`}>
+      <button onClick={onClick} className="still__button">Еще</button>
     </div>
   );
 }
